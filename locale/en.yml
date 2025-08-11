@@ -1,0 +1,11 @@
+wusong8899-user-submission:
+  lib:
+    accept: Accept
+    decline: Decline
+    list-amount: Amount
+    list-username: User
+    list-platform: Platform
+    list-platformAccount: Platform Account
+    list-userAccount: User Account
+    list-assignedAt: Apply Time
+    list-load-more: Load More

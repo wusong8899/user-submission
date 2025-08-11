@@ -1,0 +1,36 @@
+wusong8899-user-submission:
+  lib:
+    accept: 通过
+    decline: 拒绝
+    cancel: 取消
+    ok: 确定
+    list-id: 申请ID
+    list-amount: 团饭金额
+    list-username: 申请用户
+    list-platform: 娱乐场
+    list-platformAccount: 娱乐场账号
+    list-userAccount: 收款账号
+    list-userAccountFull: 收款账号/仅限支持支付宝或加密货币
+    list-assignedAt: 申请时间
+    list-reviewAt: 审核时间
+    list-reviewResult: 审核结果
+    list-reviewUser: 审核人
+    list-load-more: 读取更多
+    list-submission-accept: 已通过
+    list-submission-decline: 已拒绝
+    list-submission-reviewing: 审核中
+  forum:
+    item-header: 沙县团饭指定战略合作伙伴托管机构
+    item-input-placeholder: 输入论坛推荐公司 账号及游戏账号 以及收款信息
+    save-error: 保存错误
+    submit-success: 提交成功
+    submission-in-review: 申请正在审核中
+    application-list-title: 申请列表
+    notification-submission-result: 申请结果通知
+    notification-submission-result-title: 申请结果通知
+    notification-submission-result-success: "你的申请已通过，申请ID:{id}"
+    notification-submission-result-failed: " 你的申请被拒绝，申请ID:{id}"
+  admin:
+    submission-review: 申请审核
+    list-review: 审核
+    list-reviewed: 已审核
