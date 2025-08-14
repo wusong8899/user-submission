@@ -19,7 +19,7 @@ app.initializers.add('wusong8899-user-submission', () => {
   app.store.models.userSubmissionList = UserSubmission;
   app.notificationComponents.userSubmissionList = UserSubmissionNotification;
 
-  extend(HeaderPrimary.prototype, 'view', function (vnode) {
+  extend(HeaderPrimary.prototype, 'view', function () {
       const routeName = app.current.get('routeName');
 
       if(routeName){
@@ -31,7 +31,7 @@ app.initializers.add('wusong8899-user-submission', () => {
 
                     if(!$(".swiperTagContainer").hasClass("UserSubmissionApplication")){
                       let html = '<div style="display: flex;align-items: center;font-weight: bold;font-size: 14px;">'+
-                                    '  <img style="width:22px;" src="https://mutluresim.com/images/2023/04/04/jyzez.png" />&nbsp;&nbsp;'+app.translator.trans("wusong8899-user-submission.forum.item-header")+
+                                    '  <img style="width:22px;" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />&nbsp;&nbsp;'+app.translator.trans("wusong8899-user-submission.forum.item-header")+
                                     '</div>'+
                                     '<div style="padding-top: 10px;position:relative">'+
                                     '  <div class="UserSubmissionApplicationInput" style="position: absolute;height: 37px;width: 100%;z-index: 1;"></div>'+

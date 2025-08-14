@@ -1,7 +1,6 @@
 import Page from 'flarum/components/Page';
 import IndexPage from 'flarum/components/IndexPage';
 import listItems from 'flarum/common/helpers/listItems';
-import Button from 'flarum/components/Button';
 
 import userSubmissionApplicationModal from './userSubmissionApplicationModal';
 import LogInModal from "flarum/components/LogInModal";

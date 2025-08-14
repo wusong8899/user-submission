@@ -2,7 +2,6 @@ import app from 'flarum/forum/app';
 import Modal from 'flarum/components/Modal';
 import Stream from 'flarum/utils/Stream';
 import Button from 'flarum/components/Button';
-import Alert from 'flarum/common/components/Alert';
 import userSubmissionApplicationSubmitSuccessModal from './userSubmissionApplicationSubmitSuccessModal';
 
 export default class userSubmissionApplicationModal extends Modal {
@@ -95,7 +94,7 @@ export default class userSubmissionApplicationModal extends Modal {
         app.modal.show(userSubmissionApplicationSubmitSuccessModal);
       }
     )
-    .catch((e) => {
+    .catch(() => {
       this.loading = false;
     });
   }

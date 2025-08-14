@@ -1,4 +1,3 @@
-import {extend, override} from 'flarum/extend';
 import SettingsPage from './components/SettingsPage';
 import UserSubmission from "../forum/model/UserSubmission";
 

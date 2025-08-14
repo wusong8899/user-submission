@@ -2,12 +2,19 @@
   "private": true,
   "name": "@wusong8899/flarum-daily-check-in",
   "devDependencies": {
+    "flarum-tsconfig": "^1.0.0",
     "flarum-webpack-config": "^2.0.0",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "oxlint": "^1.11.2",
+    "vite": "^7.1.2",
+    "vite-plugin-oxlint": "^1.4.0"
   },
   "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "dev": "vite -c vite.config.admin.mts build --mode development && vite -c vite.config.forum.mts build --mode development",
+    "dev:admin": "vite -c vite.config.admin.mts build --mode development",
+    "dev:forum": "vite -c vite.config.forum.mts build --mode development",
+    "dev:watch": "vite -c vite.config.admin.mts build --watch --mode development && vite -c vite.config.forum.mts build --watch --mode development",
+    "build": "vite -c vite.config.admin.mts build --mode production && vite -c vite.config.forum.mts build --mode production",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix"
   }
 }

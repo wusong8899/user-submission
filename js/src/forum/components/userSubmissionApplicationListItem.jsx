@@ -1,20 +1,15 @@
 import Component from "flarum/Component";
-import Button from 'flarum/components/Button';
-import username from "flarum/helpers/username";
 
 export default class userSubmissionApplicationListItem extends Component {
 
   view() {
     const {itemData} = this.attrs;
-    const moneyName = app.forum.attribute('antoinefr-money.moneyname') || '[money]';
 
     const amount = itemData.amount();
     const id = itemData.id();
     const platform = itemData.platform();
     const platformAccount = itemData.platform_account();
     const userAccount = itemData.user_account();
-    const fromUser = itemData.fromUser();
-    const reviewUser = itemData.reviewUser();
     const reviewResult = itemData.review_result();
     const reviewResultText = app.translator.trans(reviewResult===1?'wusong8899-user-submission.lib.list-submission-accept':'wusong8899-user-submission.lib.list-submission-decline');
     const assignedAt = itemData.assigned_at();

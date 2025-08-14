@@ -69,9 +69,9 @@ export default class UserSubmissionReviewModal extends Modal {
     this.itemData.save({
       reviewResult:value,
     })
-    .then(
-      () => this.hide(),
-      (response) => {
+    .then( 
+      () => {
+        this.hide(),
         this.loading = false;
       }
     );

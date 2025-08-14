@@ -13,7 +13,7 @@ export default class userSubmissionNotification extends Notification {
   }
 
   content() {
-    const notification = this.attrs.notification.subject();
+    this.attrs.notification.subject();
     return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-title');
   }
 

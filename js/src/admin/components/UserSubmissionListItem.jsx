@@ -7,14 +7,12 @@ export default class UserSubmissionListItem extends Component {
 
   view() {
     const {itemData} = this.attrs;
-    const moneyName = app.forum.attribute('antoinefr-money.moneyname') || '[money]';
 
     const amount = itemData.amount();
     const platform = itemData.platform();
     const platformAccount = itemData.platform_account();
     const userAccount = itemData.user_account();
     const fromUser = itemData.fromUser();
-    const reviewUser = itemData.reviewUser();
     const reviewResult = itemData.review_result();
     const reviewResultText = app.translator.trans(reviewResult===1?'wusong8899-user-submission.lib.list-submission-accept':'wusong8899-user-submission.lib.list-submission-decline');
     const assignedAt = itemData.assigned_at();
@@ -41,7 +39,7 @@ export default class UserSubmissionListItem extends Component {
               {Button.component({
                 style: "font-weight:bold;",
                 className: 'Button Button--primary',
-                onclick: (e) => {
+                onclick: () => {
                   this.reviewItem(itemData)
                 }
               },
