@@ -1,4 +1,5 @@
 <?php
+
 namespace wusong8899\userSubmission\Helpers;
 
 use Flarum\Settings\SettingsRepositoryInterface;

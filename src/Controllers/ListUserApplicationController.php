@@ -7,7 +7,7 @@ use Flarum\Api\Controller\AbstractListController;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 use Flarum\Http\UrlGenerator;
-
+use Illuminate\Support\Carbon;
 use wusong8899\userSubmission\Serializer\UserSubmissionSerializer;
 use wusong8899\userSubmission\Model\UserSubmission;
 
@@ -30,7 +30,12 @@ class ListUserApplicationController extends AbstractListController
         $offset = $this->extractOffset($request);
         $currentUserID = $request->getAttribute('actor')->id;
 
-        $userApplicationResult = UserSubmission::where("submission_user_id", $currentUserID)->skip($offset)->take($limit + 1)->orderBy('id', 'desc')->get();
+        $userApplicationResult = UserSubmission::where("submission_user_id", $currentUserID)
+            ->where('assigned_at', '>=', Carbon::now()
+            ->subDays(3)->toDateTimeString())
+            ->skip($offset)->take($limit + 1)
+            ->orderBy('id', 'desc')
+            ->get();
         $hasMoreResults = $limit > 0 && $userApplicationResult->count() > $limit;
 
         if ($hasMoreResults) {

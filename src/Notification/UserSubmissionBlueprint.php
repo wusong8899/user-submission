@@ -3,10 +3,7 @@
 namespace wusong8899\userSubmission\Notification;
 
 use Flarum\Notification\Blueprint\BlueprintInterface;
-use Illuminate\Support\Carbon;
-
 use wusong8899\userSubmission\Model\UserSubmission;
-use wusong8899\userSubmission\Helpers\CommonHelper;
 
 class UserSubmissionBlueprint implements BlueprintInterface
 {

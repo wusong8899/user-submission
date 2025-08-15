@@ -9,6 +9,7 @@ use Flarum\User\User;
 class UserSubmission extends AbstractModel
 {
     use ScopeVisibilityTrait;
+
     protected $table = 'wusong8899_user_submission';
 
     public function fromUser()

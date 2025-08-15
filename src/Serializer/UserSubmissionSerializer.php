@@ -1,4 +1,5 @@
 <?php
+
 namespace wusong8899\userSubmission\Serializer;
 
 use Flarum\Api\Serializer\AbstractSerializer;

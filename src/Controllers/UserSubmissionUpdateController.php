@@ -6,7 +6,6 @@ use wusong8899\userSubmission\Serializer\UserSubmissionSerializer;
 use wusong8899\userSubmission\Model\UserSubmission;
 use wusong8899\userSubmission\Helpers\CommonHelper;
 use wusong8899\userSubmission\Notification\UserSubmissionBlueprint;
-
 use Flarum\User\User;
 use Flarum\Notification\NotificationSyncer;
 use Flarum\Api\Controller\AbstractCreateController;
@@ -48,7 +47,7 @@ class UserSubmissionUpdateController extends AbstractCreateController
                 $errorMessage = 'wusong8899-user-submission.forum.save-error';
             } else {
                 if (Arr::has($submissionSaveData, "attributes.reviewResult")) {
-                    $settingTimezone = (new CommonHelper)->getSettingTimezone();
+                    $settingTimezone = (new CommonHelper())->getSettingTimezone();
                     $submissionData->review_result = Arr::get($submissionSaveData, "attributes.reviewResult", 0);
                     $submissionData->review_user_id = $currentUserID;
                     $submissionData->reviewed_at = Carbon::now($settingTimezone);

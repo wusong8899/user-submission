@@ -1,13 +1,11 @@
 <?php
 
 use Flarum\Extend;
-
 use wusong8899\userSubmission\Controllers\UserSubmissionController;
 use wusong8899\userSubmission\Controllers\ListUserSubmissionController;
 use wusong8899\userSubmission\Controllers\ListUserApplicationController;
 use wusong8899\userSubmission\Controllers\UserSubmissionUpdateController;
 use wusong8899\userSubmission\Controllers\UserSubmissionAddController;
-
 use wusong8899\userSubmission\Notification\UserSubmissionBlueprint;
 use wusong8899\userSubmission\Serializer\UserSubmissionSerializer;
 

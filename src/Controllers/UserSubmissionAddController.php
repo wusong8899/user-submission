@@ -5,7 +5,6 @@ namespace wusong8899\userSubmission\Controllers;
 use wusong8899\userSubmission\Serializer\UserSubmissionSerializer;
 use wusong8899\userSubmission\Model\UserSubmission;
 use wusong8899\userSubmission\Helpers\CommonHelper;
-
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Api\Controller\AbstractCreateController;
 use Flarum\Foundation\ValidationException;
@@ -40,12 +39,15 @@ class UserSubmissionAddController extends AbstractCreateController
         if (!isset($amount) || $amount < 0) {
             $errorMessage = 'wusong8899-user-submission.forum.save-error';
         } else {
-            $submissionCount = UserSubmission::where(["submission_user_id" => $currentUserID, "review_user_id" => null])->count();
+            $submissionCount = UserSubmission::where([
+                "submission_user_id" => $currentUserID,
+                "review_user_id" => null
+            ])->count();
 
             if ($submissionCount > 0) {
                 $errorMessage = 'wusong8899-user-submission.forum.submission-in-review';
             } else {
-                $settingTimezone = (new CommonHelper)->getSettingTimezone();
+                $settingTimezone = (new CommonHelper())->getSettingTimezone();
 
                 $userSubmissionData = new UserSubmission();
                 $userSubmissionData->amount = $amount;
