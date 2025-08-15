@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@wusong8899/flarum-daily-check-in",
+  "name": "@wusong8899/user-submission",
   "devDependencies": {
     "flarum-tsconfig": "^1.0.0",
     "flarum-webpack-config": "^2.0.0",
