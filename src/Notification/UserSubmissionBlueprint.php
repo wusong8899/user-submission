@@ -1,40 +1,64 @@
 <?php
 
+declare(strict_types=1);
+
 namespace wusong8899\userSubmission\Notification;
 
 use Flarum\Notification\Blueprint\BlueprintInterface;
+use Flarum\User\User;
 use wusong8899\userSubmission\Model\UserSubmission;
 
+/**
+ * Notification blueprint for user submission events
+ */
 class UserSubmissionBlueprint implements BlueprintInterface
 {
-    public $userSubmission;
-
-    public function __construct(UserSubmission $userSubmission)
-    {
-        $this->userSubmission = $userSubmission;
+    public function __construct(
+        private readonly UserSubmission $userSubmission
+    ) {
     }
 
-    public function getSubject()
+    /**
+     * Get the subject of the notification
+     */
+    public function getSubject(): UserSubmission
     {
         return $this->userSubmission;
     }
 
-    public function getFromUser()
+    /**
+     * Get the user who triggered the notification
+     */
+    public function getFromUser(): ?User
     {
         return $this->userSubmission->fromUser;
     }
 
-    public function getData()
+    /**
+     * Get additional data for the notification
+     */
+    public function getData(): ?array
     {
-        return null;
+        return [
+            'review_result' => $this->userSubmission->review_result,
+            'review_status' => $this->userSubmission->review_status,
+            'amount' => $this->userSubmission->amount,
+            'platform' => $this->userSubmission->platform,
+        ];
     }
 
-    public static function getType()
+    /**
+     * Get the notification type
+     */
+    public static function getType(): string
     {
         return 'userSubmissionList';
     }
 
-    public static function getSubjectModel()
+    /**
+     * Get the subject model class
+     */
+    public static function getSubjectModel(): string
     {
         return UserSubmission::class;
     }

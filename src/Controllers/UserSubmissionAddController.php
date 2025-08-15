@@ -1,69 +1,77 @@
 <?php
 
+declare(strict_types=1);
+
 namespace wusong8899\userSubmission\Controllers;
 
+use wusong8899\userSubmission\Constants\UserSubmissionConstants;
 use wusong8899\userSubmission\Serializer\UserSubmissionSerializer;
 use wusong8899\userSubmission\Model\UserSubmission;
-use wusong8899\userSubmission\Helpers\CommonHelper;
-use Flarum\Settings\SettingsRepositoryInterface;
+use wusong8899\userSubmission\Services\UserSubmissionService;
 use Flarum\Api\Controller\AbstractCreateController;
 use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
-use Illuminate\Support\Carbon;
 
+/**
+ * Controller for creating user submissions
+ */
 class UserSubmissionAddController extends AbstractCreateController
 {
     public $serializer = UserSubmissionSerializer::class;
-    protected $settings;
-    protected $translator;
 
-    public function __construct(Translator $translator, SettingsRepositoryInterface $settings)
-    {
-        $this->settings = $settings;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly UserSubmissionService $submissionService,
+        private readonly Translator $translator
+    ) {
     }
 
-    protected function data(ServerRequestInterface $request, Document $document)
+    /**
+     * Create a new user submission
+     *
+     * @throws ValidationException
+     */
+    protected function data(ServerRequestInterface $request, Document $document): UserSubmission
     {
         $actor = $request->getAttribute('actor');
-        $currentUserID = $request->getAttribute('actor')->id;
-        $requestData = $request->getParsedBody()['data']['attributes'];
-        $amount = floatval($requestData['amount']);
-        $platform = $requestData['platform'];
-        $platformAccount = $requestData['platformAccount'];
-        $userAccount = $requestData['userAccount'];
-        $errorMessage = "";
+        $currentUserId = (int) $actor->id;
+        $requestData = $request->getParsedBody()['data']['attributes'] ?? [];
 
-        if (!isset($amount) || $amount < 0) {
-            $errorMessage = 'wusong8899-user-submission.forum.save-error';
-        } else {
-            $submissionCount = UserSubmission::where([
-                "submission_user_id" => $currentUserID,
-                "review_user_id" => null
-            ])->count();
+        // Extract and validate data
+        $amount = (float) ($requestData['amount'] ?? 0);
+        $platform = (string) ($requestData['platform'] ?? '');
+        $platformAccount = (string) ($requestData['platformAccount'] ?? '');
+        $userAccount = (string) ($requestData['userAccount'] ?? '');
 
-            if ($submissionCount > 0) {
-                $errorMessage = 'wusong8899-user-submission.forum.submission-in-review';
-            } else {
-                $settingTimezone = (new CommonHelper())->getSettingTimezone();
+        // Validate submission data
+        $validationErrors = $this->submissionService->validateSubmissionData([
+            'amount' => $amount,
+            'platform' => $platform,
+            'platformAccount' => $platformAccount,
+            'userAccount' => $userAccount,
+        ]);
 
-                $userSubmissionData = new UserSubmission();
-                $userSubmissionData->amount = $amount;
-                $userSubmissionData->platform = $platform;
-                $userSubmissionData->submission_user_id = $currentUserID;
-                $userSubmissionData->platform_account = $platformAccount;
-                $userSubmissionData->user_account = $userAccount;
-                $userSubmissionData->assigned_at = Carbon::now($settingTimezone);
-                $userSubmissionData->save();
-
-                return $userSubmissionData;
-            }
+        if (!empty($validationErrors)) {
+            throw new ValidationException([
+                'message' => $this->translator->trans($validationErrors[0])
+            ]);
         }
 
-        if ($errorMessage !== "") {
-            throw new ValidationException(['message' => $this->translator->trans($errorMessage)]);
+        // Check for pending submissions
+        if ($this->submissionService->hasPendingSubmissions($currentUserId)) {
+            throw new ValidationException([
+                'message' => $this->translator->trans(UserSubmissionConstants::ERROR_SUBMISSION_IN_REVIEW)
+            ]);
         }
+
+        // Create the submission
+        return $this->submissionService->createSubmission(
+            userId: $currentUserId,
+            amount: $amount,
+            platform: $platform,
+            platformAccount: $platformAccount,
+            userAccount: $userAccount
+        );
     }
 }
