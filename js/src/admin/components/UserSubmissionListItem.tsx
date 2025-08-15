@@ -1,12 +1,18 @@
-import Component from "flarum/Component";
+import app from 'flarum/admin/app';
+import Component, { ComponentAttrs } from "flarum/Component";
 import Button from 'flarum/components/Button';
 import UserSubmissionReviewModal from './UserSubmissionReviewModal';
 import username from "flarum/helpers/username";
+import { UserSubmissionData } from '../../types';
 
-export default class UserSubmissionListItem extends Component {
+interface UserSubmissionListItemAttrs extends ComponentAttrs {
+  itemData: UserSubmissionData;
+}
+
+export default class UserSubmissionListItem extends Component<UserSubmissionListItemAttrs> {
 
   view() {
-    const {itemData} = this.attrs;
+    const { itemData } = this.attrs;
 
     const amount = itemData.amount();
     const platform = itemData.platform();
@@ -14,7 +20,11 @@ export default class UserSubmissionListItem extends Component {
     const userAccount = itemData.user_account();
     const fromUser = itemData.fromUser();
     const reviewResult = itemData.review_result();
-    const reviewResultText = app.translator.trans(reviewResult===1?'wusong8899-user-submission.lib.list-submission-accept':'wusong8899-user-submission.lib.list-submission-decline');
+    const reviewResultText = app.translator.trans(
+      reviewResult === 'approved'
+        ? 'wusong8899-user-submission.lib.list-submission-accept'
+        : 'wusong8899-user-submission.lib.list-submission-decline'
+    );
     const assignedAt = itemData.assigned_at();
     const reviewedAt = itemData.reviewed_at();
 
@@ -76,7 +86,7 @@ export default class UserSubmissionListItem extends Component {
     );
   }
 
-  reviewItem(itemData){
-    app.modal.show(UserSubmissionReviewModal, {itemData});
+  private reviewItem(itemData: UserSubmissionData): void {
+    app.modal.show(UserSubmissionReviewModal, { itemData });
   }
 }

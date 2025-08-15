@@ -2,13 +2,20 @@ import app from 'flarum/forum/app';
 import Modal from 'flarum/components/Modal';
 import Stream from 'flarum/utils/Stream';
 import Button from 'flarum/components/Button';
-import userSubmissionApplicationSubmitSuccessModal from './userSubmissionApplicationSubmitSuccessModal';
+import UserSubmissionApplicationSubmitSuccessModal from './UserSubmissionApplicationSubmitSuccessModal';
+import { StreamType } from '../../types';
 
-export default class userSubmissionApplicationModal extends Modal {
+export default class UserSubmissionApplicationModal extends Modal {
   static isDismissibleViaBackdropClick = false;
   static isDismissibleViaCloseButton = true;
 
-  oninit(vnode) {
+  private loading: boolean = false;
+  private amount: StreamType<string>;
+  private platform: StreamType<string>;
+  private platformAccount: StreamType<string>;
+  private userAccount: StreamType<string>;
+
+  oninit(vnode: any) {
     super.oninit(vnode);
     this.loading = false;
 
@@ -18,11 +25,11 @@ export default class userSubmissionApplicationModal extends Modal {
     this.userAccount = Stream("");
   }
 
-  className() {
+  className(): string {
     return 'Modal--small';
   }
 
-  title() {
+  title(): string {
     return app.translator.trans('wusong8899-user-submission.forum.item-header');
   }
 
@@ -37,13 +44,13 @@ export default class userSubmissionApplicationModal extends Modal {
               </div>
 
               <div className="userSubmissionDataLabel">{app.translator.trans('wusong8899-user-submission.lib.list-platform')}</div>
-              <input maxlength="500" disabled={this.loading} required className="FormControl" bidi={this.platform} />
+              <input maxLength="500" disabled={this.loading} required className="FormControl" bidi={this.platform} />
 
               <div className="userSubmissionDataLabel">{app.translator.trans('wusong8899-user-submission.lib.list-platformAccount')}</div>
-              <input maxlength="500" disabled={this.loading} required className="FormControl" bidi={this.platformAccount} />
+              <input maxLength="500" disabled={this.loading} required className="FormControl" bidi={this.platformAccount} />
 
               <div className="userSubmissionDataLabel">{app.translator.trans('wusong8899-user-submission.lib.list-userAccountFull')}</div>
-              <input maxlength="500" disabled={this.loading} required className="FormControl" bidi={this.userAccount} />
+              <input maxLength="500" disabled={this.loading} required className="FormControl" bidi={this.userAccount} />
           </div>
 
           <div className="Form-group" style="text-align: center;">
@@ -74,28 +81,26 @@ export default class userSubmissionApplicationModal extends Modal {
   }
 
 
-  onsubmit(e) {
+  onsubmit(e: Event): void {
     e.preventDefault();
 
     this.loading = true;
 
     app.store
-    .createRecord("userSubmissionList")
-    .save({
-      amount:this.amount(),
-      platform:this.platform(),
-      platformAccount:this.platformAccount(),
-      userAccount:this.userAccount()
-    })
-    .then(
-      (result) => {
+      .createRecord("userSubmissionList")
+      .save({
+        amount: this.amount(),
+        platform: this.platform(),
+        platformAccount: this.platformAccount(),
+        userAccount: this.userAccount()
+      })
+      .then((result) => {
         app.store.pushPayload(result);
         this.loading = false;
-        app.modal.show(userSubmissionApplicationSubmitSuccessModal);
-      }
-    )
-    .catch(() => {
-      this.loading = false;
-    });
+        app.modal.show(UserSubmissionApplicationSubmitSuccessModal);
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   }
 }

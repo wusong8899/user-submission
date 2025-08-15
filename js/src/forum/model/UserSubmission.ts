@@ -1,6 +1,22 @@
 import Model from "flarum/Model";
+import User from "flarum/models/User";
+import { UserSubmissionAttributes } from "../../types";
 
-export default class UserSubmission extends Model {}
+export default class UserSubmission extends Model<UserSubmissionAttributes> {
+  id!: () => string;
+  amount!: () => number;
+  platform!: () => string;
+  platform_account!: () => string;
+  user_account!: () => string;
+  submission_user_id!: () => string;
+  review_user_id!: () => string | null;
+  review_result!: () => 'pending' | 'approved' | 'rejected' | null;
+  assigned_at!: () => Date | null;
+  reviewed_at!: () => Date | null;
+  fromUser!: () => User;
+  reviewUser!: () => User | null;
+}
+
 Object.assign(UserSubmission.prototype, {
   id: Model.attribute("id"),
   amount: Model.attribute("amount"),

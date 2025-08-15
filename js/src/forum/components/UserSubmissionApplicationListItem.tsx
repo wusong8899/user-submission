@@ -1,9 +1,15 @@
-import Component from "flarum/Component";
+import app from 'flarum/forum/app';
+import Component, { ComponentAttrs } from "flarum/Component";
+import { UserSubmissionData } from "../../types";
 
-export default class userSubmissionApplicationListItem extends Component {
+interface UserSubmissionApplicationListItemAttrs extends ComponentAttrs {
+  itemData: UserSubmissionData;
+}
+
+export default class UserSubmissionApplicationListItem extends Component<UserSubmissionApplicationListItemAttrs> {
 
   view() {
-    const {itemData} = this.attrs;
+    const { itemData } = this.attrs;
 
     const amount = itemData.amount();
     const id = itemData.id();
@@ -11,18 +17,22 @@ export default class userSubmissionApplicationListItem extends Component {
     const platformAccount = itemData.platform_account();
     const userAccount = itemData.user_account();
     const reviewResult = itemData.review_result();
-    const reviewResultText = app.translator.trans(reviewResult===1?'wusong8899-user-submission.lib.list-submission-accept':'wusong8899-user-submission.lib.list-submission-decline');
+    const reviewResultText = app.translator.trans(
+      reviewResult === 'approved'
+        ? 'wusong8899-user-submission.lib.list-submission-accept'
+        : 'wusong8899-user-submission.lib.list-submission-decline'
+    );
     const assignedAt = itemData.assigned_at();
     const reviewedAt = itemData.reviewed_at();
     let containerClassName = "userSubmissionApplicationContainer ";
 
-    if(reviewedAt===null){
-      containerClassName+="userSubmissionApplicationReviewing";
-    }else{
-      if(reviewResult===1){
-        containerClassName+="userSubmissionApplicationAccepted";
-      }else{
-        containerClassName+="userSubmissionApplicationDeclined";
+    if (reviewedAt === null) {
+      containerClassName += "userSubmissionApplicationReviewing";
+    } else {
+      if (reviewResult === 'approved') {
+        containerClassName += "userSubmissionApplicationAccepted";
+      } else {
+        containerClassName += "userSubmissionApplicationDeclined";
       }
     }
 
@@ -47,10 +57,10 @@ export default class userSubmissionApplicationListItem extends Component {
         {reviewedAt && (
           <div>
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewResult')}: </b>
-            {reviewResult===0 && (
+            {reviewResult === 'rejected' && (
               <span style="color:red">{reviewResultText}&nbsp;|&nbsp;</span>
             )}
-            {reviewResult===1 && (
+            {reviewResult === 'approved' && (
               <span style="color:green">{reviewResultText}&nbsp;|&nbsp;</span>
             )}
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewAt')}: </b>

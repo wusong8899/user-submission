@@ -2,19 +2,19 @@ import app from 'flarum/forum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 
-export default class userSubmissionApplicationSubmitSuccessModal extends Modal {
+export default class UserSubmissionApplicationSubmitSuccessModal extends Modal {
   static isDismissibleViaBackdropClick = false;
   static isDismissibleViaCloseButton = true;
 
-  oninit(vnode) {
+  oninit(vnode: any) {
     super.oninit(vnode);
   }
 
-  className() {
+  className(): string {
     return 'Modal--small';
   }
 
-  title() {
+  title(): string {
     return app.translator.trans('wusong8899-user-submission.forum.submit-success');
   }
 
@@ -26,7 +26,6 @@ export default class userSubmissionApplicationSubmitSuccessModal extends Modal {
             {Button.component(
               {
                 className: 'Button Button--primary',
-                loading: this.loading,
                 onclick: () => {
                   this.hide();
                 },

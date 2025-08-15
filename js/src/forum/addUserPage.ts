@@ -1,21 +1,22 @@
+import app from 'flarum/forum/app';
 import { extend } from "flarum/extend";
 import UserPage from "flarum/components/UserPage";
 import LinkButton from "flarum/components/LinkButton";
 
-import userSubmissionApplicationPage from './components/userSubmissionApplicationPage';
+import UserSubmissionApplicationPage from './components/UserSubmissionApplicationPage';
 
-export default function () {
+export default function addUserPage(): void {
   app.routes["user.userSubmissionApplication"] = {
     path: "/u/:username/userSubmissionApplication",
-    component: userSubmissionApplicationPage,
+    component: UserSubmissionApplicationPage,
   };
 
   extend(UserPage.prototype, "navItems", function (items) {
-      if(app.session.user){
+      if (app.session.user) {
         const currentUserID = app.session.user.id();
         const targetUserID = this.user.id();
 
-        if(currentUserID==targetUserID){
+        if (currentUserID === targetUserID) {
           items.add(
             "userSubmissionApplication",
             LinkButton.component({

@@ -1,31 +1,33 @@
 import app from 'flarum/forum/app';
 import Notification from "flarum/components/Notification";
 
-export default class userSubmissionNotification extends Notification {
-  icon() {
+export default class UserSubmissionNotification extends Notification {
+  icon(): null {
     return null;
   }
 
-  href() {
+  href(): string {
     return app.route("user.userSubmissionApplication", {
       username: app.session.user.username(),
     });
   }
 
-  content() {
+  content(): string {
     this.attrs.notification.subject();
     return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-title');
   }
 
-  excerpt() {
+  excerpt(): string | undefined {
     const notification = this.attrs.notification.subject();
     const reviewResult = notification.review_result();
     const submissionId = notification.id();
 
-    if(reviewResult===1){
-      return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-success',{id:submissionId});
-    }else if(reviewResult===0){
-      return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-failed',{id:submissionId});
+    if (reviewResult === 'approved') {
+      return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-success', { id: submissionId });
+    } else if (reviewResult === 'rejected') {
+      return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-failed', { id: submissionId });
     }
+
+    return undefined;
   }
 }

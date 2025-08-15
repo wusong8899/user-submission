@@ -1,10 +1,16 @@
+import app from 'flarum/admin/app';
 import ExtensionPage from 'flarum/components/ExtensionPage';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import Button from 'flarum/components/Button';
 import UserSubmissionListItem from './UserSubmissionListItem';
+import { UserSubmissionData } from '../../types';
 
-export default class DecorationStoreSettings extends ExtensionPage {
-  oninit(attrs) {
+export default class UserSubmissionSettingsPage extends ExtensionPage {
+  private loading: boolean = true;
+  private moreResults: boolean = false;
+  private userSubmissionList: UserSubmissionData[] = [];
+
+  oninit(attrs: any) {
     super.oninit(attrs);
     this.loading = true;
     this.moreResults = false;
@@ -13,9 +19,9 @@ export default class DecorationStoreSettings extends ExtensionPage {
   }
 
   content() {
-    let loading;
+    let loading: any;
 
-    if(this.loading){
+    if (this.loading) {
       loading = LoadingIndicator.component({ size: "large" });
     }
 
@@ -33,9 +39,11 @@ export default class DecorationStoreSettings extends ExtensionPage {
             })}
           </ul>
 
-          {!this.loading && this.userSubmissionList.length===0 && (
+          {!this.loading && this.userSubmissionList.length === 0 && (
             <div>
-              <div style="font-size:1.4em;color: var(--muted-more-color);text-align: center;line-height: 100px;">{app.translator.trans("wusong8899-decoration-store.lib.list-empty")}</div>
+              <div style="font-size:1.4em;color: var(--muted-more-color);text-align: center;line-height: 100px;">
+                {app.translator.trans("wusong8899-user-submission.lib.list-empty")}
+              </div>
             </div>
           )}
 
@@ -54,18 +62,18 @@ export default class DecorationStoreSettings extends ExtensionPage {
     );
   }
   
-  hasMoreResults() {
+  private hasMoreResults(): boolean {
     return this.moreResults;
   }
 
-  loadMore() {
+  private loadMore(): void {
     this.loading = true;
     this.loadResults(this.userSubmissionList.length);
   }
 
-  parseResults(results) {
-    this.moreResults = !!results.payload.links && !!results.payload.links.next;
-    [].push.apply(this.userSubmissionList, results);
+  private parseResults(results: UserSubmissionData[]): UserSubmissionData[] {
+    this.moreResults = !!(results as any).payload?.links?.next;
+    this.userSubmissionList.push(...results);
 
     this.loading = false;
     m.redraw();
@@ -73,14 +81,14 @@ export default class DecorationStoreSettings extends ExtensionPage {
     return results;
   }
 
-  loadResults(offset = 0) {
+  private loadResults(offset: number = 0): Promise<UserSubmissionData[]> {
     return app.store
       .find("userSubmissionList", {
         page: {
           offset
         },
       })
-      .catch(() => {})
+      .catch(() => [])
       .then(this.parseResults.bind(this));
   }
 

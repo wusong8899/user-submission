@@ -1,0 +1,29 @@
+{
+  "extends": "flarum-tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "flarum/*": [
+        "./node_modules/flarum-webpack-config/flarum/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxFactory": "m"
+  },
+  "include": [
+    "src/**/*",
+    "admin.ts",
+    "forum.ts",
+    "*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

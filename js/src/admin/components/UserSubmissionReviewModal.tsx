@@ -1,11 +1,20 @@
+import app from 'flarum/admin/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
+import { UserSubmissionData } from '../../types';
 
-export default class UserSubmissionReviewModal extends Modal {
+interface UserSubmissionReviewModalAttrs {
+  itemData: UserSubmissionData;
+}
+
+export default class UserSubmissionReviewModal extends Modal<UserSubmissionReviewModalAttrs> {
   static isDismissibleViaBackdropClick = false;
   static isDismissibleViaCloseButton = true;
 
-  oninit(vnode) {
+  private itemData!: UserSubmissionData;
+  private loading: boolean = false;
+
+  oninit(vnode: any) {
     super.oninit(vnode);
     this.itemData = this.attrs.itemData;
     this.loading = false;
@@ -29,8 +38,8 @@ export default class UserSubmissionReviewModal extends Modal {
               style: 'min-width:66px;',
               className: 'Button Button--primary',
               disabled: this.loading,
-              onclick: (e) => {
-                this.reviewConfirm(e,1);
+              onclick: (e: Event) => {
+                this.reviewConfirm(e, 'approved');
               }
             },
             app.translator.trans('wusong8899-user-submission.lib.accept')
@@ -40,8 +49,8 @@ export default class UserSubmissionReviewModal extends Modal {
               style: 'min-width:66px;',
               className: 'Button Button--danger',
               disabled: this.loading,
-              onclick: (e) => {
-                this.reviewConfirm(e,0);
+              onclick: (e: Event) => {
+                this.reviewConfirm(e, 'rejected');
               }
             },
             app.translator.trans('wusong8899-user-submission.lib.decline')
@@ -62,18 +71,19 @@ export default class UserSubmissionReviewModal extends Modal {
     );
   }
 
-  reviewConfirm(e,value) {
+  private reviewConfirm(e: Event, value: 'approved' | 'rejected'): void {
     e.preventDefault();
 
     this.loading = true;
     this.itemData.save({
-      reviewResult:value,
+      reviewResult: value,
     })
-    .then( 
-      () => {
-        this.hide(),
-        this.loading = false;
-      }
-    );
+    .then(() => {
+      this.hide();
+      this.loading = false;
+    })
+    .catch(() => {
+      this.loading = false;
+    });
   }
 }
