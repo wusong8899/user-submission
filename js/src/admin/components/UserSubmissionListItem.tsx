@@ -33,30 +33,42 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
     return (
       <div className="biddingRankSettingContainer">
         <div style="float:right">
-          {reviewedAt && (
-            <div style="padding:0px 0px 5px 5px">
+          <div style="display: flex; gap: 5px; align-items: center;">
+            {reviewedAt && (
+              <div>
+                {Button.component({
+                  style: "font-weight:bold;",
+                  disabled: true,
+                  className: 'Button',
+                },
+                app.translator.trans('wusong8899-user-submission.admin.list-reviewed')
+                )}
+              </div>
+            )}
+            {!reviewedAt && (
+              <div>
+                {Button.component({
+                  style: "font-weight:bold;",
+                  className: 'Button Button--primary',
+                  onclick: () => {
+                    this.reviewItem(itemData)
+                  }
+                },
+                app.translator.trans('wusong8899-user-submission.admin.list-review')
+                )}
+              </div>
+            )}
+            <div>
               {Button.component({
-                style: "font-weight:bold;",
-                disabled: true,
-                className: 'Button',
-              },
-              app.translator.trans('wusong8899-user-submission.admin.list-reviewed')
-              )}
-            </div>
-          )}
-          {!reviewedAt && (
-            <div style="padding:0px 0px 5px 5px">
-              {Button.component({
-                style: "font-weight:bold;",
-                className: 'Button Button--primary',
+                className: 'Button Button--danger',
+                icon: 'fas fa-trash',
+                title: app.translator.trans('wusong8899-user-submission.admin.delete-submission'),
                 onclick: () => {
-                  this.reviewItem(itemData)
+                  this.deleteItem(itemData)
                 }
-              },
-              app.translator.trans('wusong8899-user-submission.admin.list-review')
-              )}
+              })}
             </div>
-          )}
+          </div>
         </div>
         <div>
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-username')}: </b>
@@ -88,5 +100,22 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
 
   private reviewItem(itemData: UserSubmissionData): void {
     app.modal.show(UserSubmissionReviewModal, { itemData });
+  }
+
+  private deleteItem(itemData: UserSubmissionData): void {
+    if (confirm(app.translator.trans('wusong8899-user-submission.admin.confirm-delete'))) {
+      app.store
+        .find('userSubmissionList', itemData.id())
+        .then((submission: any) => {
+          return submission.delete();
+        })
+        .then(() => {
+          // Refresh the page or remove the item from the list
+          window.location.reload();
+        })
+        .catch(() => {
+          alert(app.translator.trans('wusong8899-user-submission.admin.delete-failed'));
+        });
+    }
   }
 }

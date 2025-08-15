@@ -1,5 +1,6 @@
 import app from 'flarum/forum/app';
 import Component, { ComponentAttrs } from "flarum/Component";
+import Button from 'flarum/components/Button';
 import { UserSubmissionData } from "../../types";
 
 interface UserSubmissionApplicationListItemAttrs extends ComponentAttrs {
@@ -73,7 +74,31 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
             <span style="color:grey">{app.translator.trans('wusong8899-user-submission.lib.list-submission-reviewing')}</span>
           </div>
         )}
+        <div style="margin-top: 10px; text-align: right;">
+          {Button.component({
+            className: 'Button Button--danger Button--small',
+            icon: 'fas fa-trash',
+            onclick: () => this.deleteItem(itemData)
+          }, app.translator.trans('wusong8899-user-submission.forum.delete-submission'))}
+        </div>
       </div>
     );
+  }
+
+  private deleteItem(itemData: UserSubmissionData): void {
+    if (confirm(app.translator.trans('wusong8899-user-submission.forum.confirm-delete'))) {
+      app.store
+        .find('userSubmissionList', itemData.id())
+        .then((submission: any) => {
+          return submission.delete();
+        })
+        .then(() => {
+          // Refresh the page or remove the item from the list
+          window.location.reload();
+        })
+        .catch(() => {
+          alert(app.translator.trans('wusong8899-user-submission.forum.delete-failed'));
+        });
+    }
   }
 }
