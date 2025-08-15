@@ -87,11 +87,10 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
 
   private deleteItem(itemData: UserSubmissionData): void {
     if (confirm(app.translator.trans('wusong8899-user-submission.forum.confirm-delete'))) {
-      app.store
-        .find('userSubmissionList', itemData.id())
-        .then((submission: any) => {
-          return submission.delete();
-        })
+      app.request({
+        method: 'DELETE',
+        url: app.forum.attribute('apiUrl') + '/userSubmissionList/' + itemData.id(),
+      })
         .then(() => {
           // Refresh the page or remove the item from the list
           window.location.reload();

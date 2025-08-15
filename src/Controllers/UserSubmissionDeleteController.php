@@ -27,7 +27,7 @@ class UserSubmissionDeleteController extends AbstractDeleteController
 
     /**
      * Delete a user submission
-     * 
+     *
      * @throws ValidationException
      * @throws PermissionDeniedException
      */
@@ -35,6 +35,11 @@ class UserSubmissionDeleteController extends AbstractDeleteController
     {
         $actor = $request->getAttribute('actor');
         $submissionId = (int) Arr::get($request->getQueryParams(), 'id');
+
+        // If not in query params, try route parameters
+        if ($submissionId <= 0) {
+            $submissionId = (int) ($request->getAttribute('routeParams')['id'] ?? 0);
+        }
 
         if ($submissionId <= 0) {
             throw new ValidationException([
