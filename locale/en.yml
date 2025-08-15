@@ -9,3 +9,10 @@ wusong8899-user-submission:
     list-userAccount: User Account
     list-assignedAt: Apply Time
     list-load-more: Load More
+    list-empty: No submissions found
+  admin:
+    confirm-delete: "Are you sure you want to delete this submission?"
+    delete-failed: "Failed to delete submission"
+  forum:
+    confirm-delete: "Are you sure you want to delete this submission?"
+    delete-failed: "Failed to delete submission"

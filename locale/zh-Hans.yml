@@ -19,6 +19,7 @@ wusong8899-user-submission:
     list-submission-accept: 已通过
     list-submission-decline: 已拒绝
     list-submission-reviewing: 审核中
+    list-empty: 暂无提交
   forum:
     item-header: 沙县团饭指定战略合作伙伴托管机构
     item-input-placeholder: 输入论坛推荐公司 账号及游戏账号 以及收款信息
@@ -30,7 +31,11 @@ wusong8899-user-submission:
     notification-submission-result-title: 申请结果通知
     notification-submission-result-success: "你的申请已通过，申请ID:{id}"
     notification-submission-result-failed: " 你的申请被拒绝，申请ID:{id}"
+    confirm-delete: "确定要删除此申请吗？"
+    delete-failed: "删除失败"
   admin:
     submission-review: 申请审核
     list-review: 审核
     list-reviewed: 已审核
+    confirm-delete: "确定要删除此申请吗？"
+    delete-failed: "删除失败"
