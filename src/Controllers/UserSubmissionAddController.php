@@ -40,15 +40,11 @@ class UserSubmissionAddController extends AbstractCreateController
 
         // Extract and validate data
         $amount = (float) ($requestData['amount'] ?? 0);
-        $platform = (string) ($requestData['platform'] ?? '');
-        $platformAccount = (string) ($requestData['platformAccount'] ?? '');
         $userAccount = (string) ($requestData['userAccount'] ?? '');
 
         // Validate submission data
         $validationErrors = $this->submissionService->validateSubmissionData([
             'amount' => $amount,
-            'platform' => $platform,
-            'platformAccount' => $platformAccount,
             'userAccount' => $userAccount,
         ]);
 
@@ -69,8 +65,6 @@ class UserSubmissionAddController extends AbstractCreateController
         return $this->submissionService->createSubmission(
             userId: $currentUserId,
             amount: $amount,
-            platform: $platform,
-            platformAccount: $platformAccount,
             userAccount: $userAccount
         );
     }

@@ -1,0 +1,38 @@
+// Admin Shared Components Styles
+.user-submission-admin {
+  &__list {
+    padding: 0;
+    list-style-type: none;
+    
+    &-item {
+      margin-top: 5px;
+      background: var(--body-bg);
+    }
+  }
+  
+  &__empty-state {
+    font-size: 1.4em;
+    color: var(--muted-more-color);
+    text-align: center;
+    line-height: 100px;
+  }
+  
+  &__load-more-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  &__modal {
+    &-form-group {
+      text-align: center;
+    }
+    
+    &-button {
+      min-width: 66px;
+      
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+}

@@ -7,8 +7,6 @@ wusong8899-user-submission:
     list-id: Application ID
     list-amount: Group Meal Amount
     list-username: Applicant User
-    list-platform: Entertainment Platform
-    list-platformAccount: Platform Account
     list-userAccount: Payment Account
     list-userAccountFull: Payment Account/Only supports Alipay or cryptocurrency
     list-assignedAt: Application Time
@@ -22,7 +20,7 @@ wusong8899-user-submission:
     list-empty: No submissions found
   forum:
     item-header: Shaxian Group Meal Designated Strategic Partner Custodial Institution
-    item-input-placeholder: Enter forum recommended company account and game account as well as payment information
+    item-input-placeholder: Enter payment information
     save-error: Save error
     submit-success: Submitted successfully
     submission-in-review: Application is under review

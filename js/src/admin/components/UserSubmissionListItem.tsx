@@ -15,8 +15,6 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
     const { itemData } = this.attrs;
 
     const amount = itemData.amount();
-    const platform = itemData.platform();
-    const platformAccount = itemData.platform_account();
     const userAccount = itemData.user_account();
     const fromUser = itemData.fromUser();
     const reviewResult = itemData.review_result();
@@ -79,10 +77,6 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
           {assignedAt}
         </div>
         <div>
-          <b>{app.translator.trans('wusong8899-user-submission.lib.list-platform')}: </b>
-          {platform}&nbsp;|&nbsp;
-          <b>{app.translator.trans('wusong8899-user-submission.lib.list-platformAccount')}: </b>
-          {platformAccount}&nbsp;|&nbsp;
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-userAccount')}: </b>
           {userAccount}
         </div>

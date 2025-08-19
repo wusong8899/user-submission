@@ -36,15 +36,11 @@ class UserSubmissionService
     public function createSubmission(
         int $userId,
         float $amount,
-        string $platform,
-        string $platformAccount,
         string $userAccount
     ): UserSubmission {
         $userSubmission = new UserSubmission();
         $userSubmission->amount = $amount;
-        $userSubmission->platform = $platform;
         $userSubmission->submission_user_id = $userId;
-        $userSubmission->platform_account = $platformAccount;
         $userSubmission->user_account = $userAccount;
         $userSubmission->assigned_at = Carbon::now($this->timezoneService->getTimezone());
         $userSubmission->save();
@@ -98,14 +94,6 @@ class UserSubmissionService
         $errors = [];
 
         if (!isset($data['amount']) || $data['amount'] < UserSubmissionConstants::MIN_AMOUNT) {
-            $errors[] = UserSubmissionConstants::ERROR_SAVE_FAILED;
-        }
-
-        if (isset($data['platform']) && strlen($data['platform']) > UserSubmissionConstants::MAX_PLATFORM_LENGTH) {
-            $errors[] = UserSubmissionConstants::ERROR_SAVE_FAILED;
-        }
-
-        if (isset($data['platformAccount']) && strlen($data['platformAccount']) > UserSubmissionConstants::MAX_ACCOUNT_LENGTH) {
             $errors[] = UserSubmissionConstants::ERROR_SAVE_FAILED;
         }
 

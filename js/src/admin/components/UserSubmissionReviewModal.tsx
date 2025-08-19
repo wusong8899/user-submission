@@ -32,11 +32,10 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
     //
     return (
       <div className="Modal-body">
-        <div className="Form-group" style="text-align: center;">
+        <div className="Form-group user-submission-admin__modal-form-group">
           {Button.component(
             {
-              style: 'min-width:66px;',
-              className: 'Button Button--primary',
+              className: 'Button Button--primary user-submission-admin__modal-button',
               disabled: this.loading,
               onclick: (e: Event) => {
                 this.reviewConfirm(e, 'approved');
@@ -46,8 +45,7 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
           )}&nbsp;
           {Button.component(
             {
-              style: 'min-width:66px;',
-              className: 'Button Button--danger',
+              className: 'Button Button--danger user-submission-admin__modal-button',
               disabled: this.loading,
               onclick: (e: Event) => {
                 this.reviewConfirm(e, 'rejected');
@@ -57,8 +55,7 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
           )}&nbsp;
           {Button.component(
             {
-              style: 'min-width:66px;',
-              className: 'Button',
+              className: 'Button user-submission-admin__modal-button',
               disabled: this.loading,
               onclick: () => {
                 this.hide();

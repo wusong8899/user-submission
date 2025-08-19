@@ -2,24 +2,42 @@ import app from 'flarum/forum/app';
 import Component, { ComponentAttrs } from 'flarum/Component';
 import UserSubmissionApplicationModal from './UserSubmissionApplicationModal';
 import LogInModal from 'flarum/components/LogInModal';
+import m from 'mithril';
 
 interface UserSubmissionWidgetAttrs extends ComponentAttrs {}
 
 /**
- * Widget component for user submission application
- * Displays on the tags page to allow users to submit applications
+ * Modernized Widget component for user submission application
+ * Uses single rendering path with DOM manipulation for better maintainability
  */
 export default class UserSubmissionWidget extends Component<UserSubmissionWidgetAttrs> {
   private static readonly POLL_INTERVAL = 10; // milliseconds
   private static readonly WIDGET_CLASS = 'UserSubmissionApplication';
   private static readonly CONTAINER_SELECTOR = '.swiperTagContainer'; // 当使用 flarum-header-advertisement ，改为splideTagContainer
+  
+  private widgetElement?: HTMLElement;
 
   oncreate(vnode: any) {
     super.oncreate(vnode);
-    this.setupWidget();
+    this.setupDynamicWidget();
+  }
+
+  onremove() {
+    // Cleanup dynamic widget when component is removed
+    if (this.widgetElement) {
+      this.widgetElement.remove();
+    }
   }
 
   view() {
+    // This view method is for potential direct usage
+    return this.renderWidgetContent();
+  }
+
+  /**
+   * Unified widget content rendering using JSX
+   */
+  private renderWidgetContent() {
     return (
       <div className="user-submission-widget">
         <div className="user-submission-header">
@@ -34,10 +52,10 @@ export default class UserSubmissionWidget extends Component<UserSubmissionWidget
         </div>
         <div className="user-submission-input-container">
           <div 
-            className="user-submission-input-overlay"
+            className="user-submission-input-container__overlay"
             onclick={this.handleInputClick.bind(this)}
           />
-          <div className="Search-input">
+          <div className="user-submission-input-container__search-input Search-input">
             <input 
               disabled 
               className="FormControl" 
@@ -50,52 +68,52 @@ export default class UserSubmissionWidget extends Component<UserSubmissionWidget
     );
   }
 
-  private setupWidget(): void {
+  /**
+   * Setup dynamic widget injection with modern DOM manipulation
+   */
+  private setupDynamicWidget(): void {
     const pollForContainer = setInterval(() => {
-      const container = $(UserSubmissionWidget.CONTAINER_SELECTOR);
+      const container = document.querySelector(UserSubmissionWidget.CONTAINER_SELECTOR);
       
-      if (container.length > 0) {
+      if (container && !container.classList.contains(UserSubmissionWidget.WIDGET_CLASS)) {
         clearInterval(pollForContainer);
-        this.insertWidget(container);
+        this.injectWidgetAfterContainer(container);
       }
     }, UserSubmissionWidget.POLL_INTERVAL);
+
+    // Cleanup timer if component is removed
+    setTimeout(() => clearInterval(pollForContainer), 5000); // Max 5 seconds
   }
 
-  private insertWidget(container: JQuery): void {
-    if (!container.hasClass(UserSubmissionWidget.WIDGET_CLASS)) {
-      const widgetHtml = this.renderWidgetHtml();
-      $(widgetHtml).insertAfter(container);
-      container.addClass(UserSubmissionWidget.WIDGET_CLASS);
-      this.attachEventHandlers();
-    }
+  /**
+   * Inject widget using modern DOM APIs and Mithril rendering
+   */
+  private injectWidgetAfterContainer(container: Element): void {
+    container.classList.add(UserSubmissionWidget.WIDGET_CLASS);
+    
+    // Create widget container
+    this.widgetElement = document.createElement('div');
+    this.widgetElement.className = 'user-submission-widget-dynamic';
+    
+    // Insert after container
+    container.parentNode?.insertBefore(this.widgetElement, container.nextSibling);
+    
+    // Render widget content using Mithril
+    m.render(this.widgetElement, this.renderWidgetContent());
   }
 
-  private renderWidgetHtml(): string {
-    return `
-      <div class="user-submission-widget">
-        <div class="user-submission-header">
-          <img class="user-submission-icon" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />
-          <span class="user-submission-title">${app.translator.trans("wusong8899-user-submission.forum.item-header")}</span>
-        </div>
-        <div class="user-submission-input-container">
-          <div class="UserSubmissionApplicationInput" style="position: absolute;height: 37px;width: 100%;z-index: 1;"></div>
-          <div style="width:100%" class="Search-input">
-            <input disabled style="width: 100%;" class="FormControl" type="search" placeholder="${app.translator.trans('wusong8899-user-submission.forum.item-input-placeholder')}" />
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  private attachEventHandlers(): void {
-    $(".UserSubmissionApplicationInput").on("click", this.handleInputClick.bind(this));
-  }
-
+  /**
+   * Enhanced click handler with better error handling
+   */
   private handleInputClick(): void {
-    if (app.session.user) {
-      app.modal.show(UserSubmissionApplicationModal);
-    } else {
-      app.modal.show(LogInModal);
+    try {
+      if (app.session.user) {
+        app.modal.show(UserSubmissionApplicationModal);
+      } else {
+        app.modal.show(LogInModal);
+      }
+    } catch {
+      // Silent error handling - could be logged to a service in production
     }
   }
 }

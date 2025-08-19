@@ -77,6 +77,157 @@
   vertical-align: middle;
 }
 
+// Shared Components Styles
+.user-submission-list {
+  padding: 0;
+  list-style-type: none;
+  
+  &__item {
+    margin-top: 5px;
+    background: var(--body-bg);
+  }
+}
+
+.user-submission-empty-state {
+  font-size: 1.4em;
+  color: var(--muted-more-color);
+  text-align: center;
+  line-height: 100px;
+}
+
+.user-submission-load-more-container {
+  text-align: center;
+  padding: 20px;
+}
+
+// Status colors for submissions
+.user-submission-status {
+  &--approved {
+    color: green;
+  }
+  
+  &--rejected {
+    color: red;
+  }
+  
+  &--reviewing {
+    color: grey;
+  }
+}
+
+// Actions container
+.user-submission-actions {
+  margin-top: 10px;
+  text-align: right;
+}
+
+// Modal Components Styles
+.user-submission-modal {
+  &__form-group {
+    text-align: center;
+  }
+  
+  &__button {
+    min-width: 66px;
+    
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Widget Styles
+.user-submission-widget {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  
+  .user-submission-header {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-color, #333);
+    
+    .user-submission-icon {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+    }
+    
+    .user-submission-title {
+      margin-left: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.02em;
+    }
+  }
+  
+  .user-submission-input-container {
+    padding-top: 12px;
+    position: relative;
+    
+    &__overlay {
+      position: absolute;
+      height: 37px;
+      width: 100%;
+      z-index: 1;
+      cursor: pointer;
+    }
+    
+    &__search-input {
+      width: 100%;
+    }
+    
+    .FormControl {
+      font-size: 12px;
+      line-height: 1.4;
+      width: 100%;
+      
+      &::placeholder {
+        font-size: 12px;
+        color: var(--text-muted, #999);
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+// Application Containers
+.userSubmissionApplicationContainer {
+  padding: 10px;
+  border-radius: var(--border-radius);
+}
+
+.userSubmissionApplicationReviewing{
+  border: 1px dotted grey;
+}
+
+.userSubmissionApplicationAccepted{
+  border: 1px dotted green;
+}
+
+.userSubmissionApplicationDeclined{
+  border: 1px dotted red;
+}
+
+.userSubmissionDataLabel{
+  text-align: left;
+  padding: 10px 0px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+// Standalone icon sizing rule to ensure it works in both rendering paths
+.user-submission-icon {
+  width: 18px !important;
+  height: 18px !important;
+  vertical-align: middle;
+}
+
 // Ensure Chinese characters display properly in modal titles and labels
 .Modal--small .Modal-header h3,
 .userSubmissionDataLabel {

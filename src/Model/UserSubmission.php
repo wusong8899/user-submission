@@ -8,7 +8,7 @@ use wusong8899\userSubmission\Constants\UserSubmissionConstants;
 use Flarum\Database\AbstractModel;
 use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\User\User;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 
 /**
@@ -16,8 +16,6 @@ use Carbon\Carbon;
  *
  * @property int $id
  * @property float $amount
- * @property string $platform
- * @property string $platform_account
  * @property string $user_account
  * @property int $submission_user_id
  * @property int|null $review_user_id
@@ -50,8 +48,6 @@ class UserSubmission extends AbstractModel
      */
     protected $fillable = [
         'amount',
-        'platform',
-        'platform_account',
         'user_account',
         'submission_user_id',
         'assigned_at',
@@ -60,17 +56,17 @@ class UserSubmission extends AbstractModel
     /**
      * Get the user who submitted this submission
      */
-    public function fromUser(): HasOne
+    public function fromUser(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'submission_user_id');
+        return $this->belongsTo(User::class, 'submission_user_id', 'id');
     }
 
     /**
      * Get the user who reviewed this submission
      */
-    public function reviewUser(): HasOne
+    public function reviewUser(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'review_user_id');
+        return $this->belongsTo(User::class, 'review_user_id', 'id');
     }
 
     /**

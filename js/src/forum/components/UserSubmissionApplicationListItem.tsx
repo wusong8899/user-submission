@@ -14,8 +14,6 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
 
     const amount = itemData.amount();
     const id = itemData.id();
-    const platform = itemData.platform();
-    const platformAccount = itemData.platform_account();
     const userAccount = itemData.user_account();
     const reviewResult = itemData.review_result();
     const reviewResultText = app.translator.trans(
@@ -48,10 +46,6 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
         <div>
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-amount')}: </b>
           {amount}&nbsp;|&nbsp;
-          <b>{app.translator.trans('wusong8899-user-submission.lib.list-platform')}: </b>
-          {platform}&nbsp;|&nbsp;
-          <b>{app.translator.trans('wusong8899-user-submission.lib.list-platformAccount')}: </b>
-          {platformAccount}&nbsp;|&nbsp;
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-userAccount')}: </b>
           {userAccount}
         </div>
@@ -59,10 +53,10 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
           <div>
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewResult')}: </b>
             {reviewResult === 'rejected' && (
-              <span style="color:red">{reviewResultText}&nbsp;|&nbsp;</span>
+              <span className="user-submission-status user-submission-status--rejected">{reviewResultText}&nbsp;|&nbsp;</span>
             )}
             {reviewResult === 'approved' && (
-              <span style="color:green">{reviewResultText}&nbsp;|&nbsp;</span>
+              <span className="user-submission-status user-submission-status--approved">{reviewResultText}&nbsp;|&nbsp;</span>
             )}
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewAt')}: </b>
             {reviewedAt}
@@ -71,10 +65,10 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
         {!reviewedAt && (
           <div>
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewResult')}: </b>
-            <span style="color:grey">{app.translator.trans('wusong8899-user-submission.lib.list-submission-reviewing')}</span>
+            <span className="user-submission-status user-submission-status--reviewing">{app.translator.trans('wusong8899-user-submission.lib.list-submission-reviewing')}</span>
           </div>
         )}
-        <div style="margin-top: 10px; text-align: right;">
+        <div className="user-submission-actions">
           {Button.component({
             className: 'Button Button--danger Button--small',
             icon: 'fas fa-trash',

@@ -7,8 +7,6 @@ wusong8899-user-submission:
     list-id: 申请ID
     list-amount: 团饭金额
     list-username: 申请用户
-    list-platform: 娱乐场
-    list-platformAccount: 娱乐场账号
     list-userAccount: 收款账号
     list-userAccountFull: 收款账号/仅限支持支付宝或加密货币
     list-assignedAt: 申请时间
@@ -22,7 +20,7 @@ wusong8899-user-submission:
     list-empty: 暂无提交
   forum:
     item-header: 沙县团饭指定战略合作伙伴托管机构
-    item-input-placeholder: 输入论坛推荐公司 账号及游戏账号 以及收款信息
+    item-input-placeholder: 输入收款信息
     save-error: 保存错误
     submit-success: 提交成功
     submission-in-review: 申请正在审核中
