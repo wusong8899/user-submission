@@ -50,13 +50,20 @@ export function createPaginationState(): PaginationState & PaginationActions {
     },
 
     async loadMore(loadFunction: (offset: number) => Promise<UserSubmissionData[]>) {
-      this.setLoading(true);
+      if (state.loading) return; // Prevent multiple simultaneous requests
+      
+      state.loading = true;
+      m.redraw();
+      
       try {
-        await loadFunction(state.items.length);
-      } catch {
-        // Log error silently - could be sent to error service in production
-      } finally {
-        this.setLoading(false);
+        const results = await loadFunction(state.items.length);
+        // Results will be processed by parseResults function
+        return results;
+      } catch (error) {
+        console.error('Error loading more items:', error);
+        state.loading = false;
+        m.redraw();
+        throw error;
       }
     }
   };
@@ -71,11 +78,31 @@ export function parseResults(
   pagination: ReturnType<typeof createPaginationState>,
   results: UserSubmissionData[]
 ): UserSubmissionData[] {
-  // Check for pagination links in the response meta or links
-  const hasMoreResults = !!(results as any).links?.next || !!(results as any).meta?.hasMore;
+  // For Flarum store.find() results, the pagination info is usually in the payload
+  // Check for pagination links in different possible locations
+  let hasMoreResults = false;
+  
+  // Try different paths where pagination info might be stored
+  if (results && typeof results === 'object') {
+    const payload = results as any;
+    
+    // Check for standard JSON:API pagination links
+    hasMoreResults = !!(payload.links?.next) || 
+                     !!(payload.meta?.hasMore) ||
+                     !!(payload.payload?.links?.next) ||
+                     // For collections, check if we got a full page
+                     (Array.isArray(results) && results.length >= 20); // Assuming 20 is default page size
+  }
+  
   pagination.setMoreResults(hasMoreResults);
-  pagination.addItems(results);
+  
+  // Handle both array results and wrapped results
+  const itemsToAdd = Array.isArray(results) ? results : (results as any).data || [];
+  if (itemsToAdd.length > 0) {
+    pagination.addItems(itemsToAdd);
+  }
+  
   pagination.setLoading(false);
 
-  return results;
+  return Array.isArray(results) ? results : itemsToAdd;
 }

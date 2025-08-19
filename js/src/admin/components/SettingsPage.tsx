@@ -22,7 +22,7 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
             loading={this.pagination.loading}
             hasMore={this.pagination.hasMoreResults()}
             onLoadMore={() => this.loadMore()}
-            renderItem={(itemData) => <UserSubmissionListItem itemData={itemData} />}
+            renderItem={(itemData) => UserSubmissionListItem.component({ itemData })}
             className="user-submission-admin__list"
           />
         </div>
@@ -30,8 +30,12 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
     );
   }
   
-  private loadMore(): void {
-    this.pagination.loadMore((offset) => this.loadResults(offset));
+  private async loadMore(): Promise<void> {
+    try {
+      await this.pagination.loadMore((offset) => this.loadResults(offset));
+    } catch (error) {
+      console.error('Failed to load more results:', error);
+    }
   }
 
   private parseResults(results: UserSubmissionData[]): UserSubmissionData[] {
