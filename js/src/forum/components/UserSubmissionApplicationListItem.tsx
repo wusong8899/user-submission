@@ -23,6 +23,11 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
     );
     const assignedAt = itemData.assigned_at();
     const reviewedAt = itemData.reviewed_at();
+    
+    // Format dates for display
+    const formattedAssignedAt = assignedAt ? new Date(assignedAt).toLocaleString() : '';
+    const formattedReviewedAt = reviewedAt ? new Date(reviewedAt).toLocaleString() : '';
+    
     let containerClassName = "userSubmissionApplicationContainer ";
 
     if (reviewedAt === null) {
@@ -41,7 +46,7 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-id')}: </b>
           {id}&nbsp;|&nbsp;
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-assignedAt')}: </b>
-          {assignedAt}
+          {formattedAssignedAt}
         </div>
         <div>
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-amount')}: </b>
@@ -59,7 +64,7 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
               <span className="user-submission-status user-submission-status--approved">{reviewResultText}&nbsp;|&nbsp;</span>
             )}
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewAt')}: </b>
-            {reviewedAt}
+            {formattedReviewedAt}
           </div>
         )}
         {!reviewedAt && (

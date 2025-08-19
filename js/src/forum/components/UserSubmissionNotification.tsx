@@ -13,7 +13,7 @@ export default class UserSubmissionNotification extends Notification {
   }
 
   content(): string {
-    this.attrs.notification.subject();
+    // The subject() call was not being used, removing it
     return app.translator.trans('wusong8899-user-submission.forum.notification-submission-result-title');
   }
 
