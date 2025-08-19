@@ -20,7 +20,7 @@ use Carbon\Carbon;
  * @property int $submission_user_id
  * @property int|null $review_user_id
  * @property int|null $review_result
- * @property Carbon $assigned_at
+ * @property Carbon|null $assigned_at
  * @property Carbon|null $reviewed_at
  * @property Carbon $created_at
  * @property Carbon $updated_at

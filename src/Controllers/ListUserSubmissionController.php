@@ -21,7 +21,6 @@ class ListUserSubmissionController extends AbstractListController
     public $serializer = UserSubmissionSerializer::class;
     public $include = ['fromUser', 'reviewUser'];
 
-    private const DEFAULT_DAYS_FILTER = 3;
 
     public function __construct(
         private readonly UrlGenerator $url
