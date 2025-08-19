@@ -1,9 +1,9 @@
 import Component, { ComponentAttrs } from "flarum/common/Component";
+import LoadingIndicator from "flarum/common/components/LoadingIndicator";
 import app from "flarum/forum/app";
 import { UserSubmissionData } from "../../types";
-import ListContainer from "../../common/components/ListContainer";
 import UserSubmissionApplicationListItem from "./UserSubmissionApplicationListItem";
-import { createPaginationState, parseResults } from "../../common/hooks/usePagination";
+import m from "mithril";
 
 interface UserSubmissionApplicationListPageAttrs extends ComponentAttrs {
   params: {
@@ -12,42 +12,64 @@ interface UserSubmissionApplicationListPageAttrs extends ComponentAttrs {
 }
 
 export default class UserSubmissionApplicationListPage extends Component<UserSubmissionApplicationListPageAttrs> {
-  private pagination = createPaginationState();
+  private submissions: UserSubmissionData[] = [];
+  private loading = true;
 
   oninit(vnode: any) {
     super.oninit(vnode);
-    this.loadResults();
+    this.loadSubmissions();
   }
 
   view() {
     return (
-      <ListContainer
-        items={this.pagination.items}
-        loading={this.pagination.loading}
-        hasMore={this.pagination.hasMoreResults()}
-        onLoadMore={() => this.loadMore()}
-        renderItem={(itemData) => UserSubmissionApplicationListItem.component({ itemData })}
-      />
+      <div className="UserSubmissionApplicationList">
+        {this.loading ? (
+          <LoadingIndicator size="large" />
+        ) : (
+          <div className="UserSubmissionApplicationList-items">
+            {this.submissions.length === 0 ? (
+              <div className="EmptyState">
+                <p>{app.translator.trans('wusong8899-user-submission.forum.no_applications')}</p>
+              </div>
+            ) : (
+              this.submissions.map((submission) => 
+                UserSubmissionApplicationListItem.component({ 
+                  key: submission.id(), 
+                  itemData: submission 
+                })
+              )
+            )}
+          </div>
+        )}
+      </div>
     );
   }
-  
-  private loadMore(): void {
-    this.pagination.loadMore((offset) => this.loadResults(offset));
-  }
 
-  private parseResults(results: UserSubmissionData[]): UserSubmissionData[] {
-    return parseResults(this.pagination, results);
-  }
+  private async loadSubmissions(): Promise<void> {
+    try {
+      this.loading = true;
+      m.redraw();
 
-  private loadResults(offset: number = 0): Promise<UserSubmissionData[]> {
-    return app.store
-      .find("userSubmissionApplicationList", {
-        page: {
-          offset
-        },
-      })
-      .catch(() => [])
-      .then(this.parseResults.bind(this));
-  }
+      // Load user's applications
+      const results = await app.store.find("userSubmissionApplicationList", {
+        page: { limit: 50 }
+      });
 
+      // Handle the results
+      if (Array.isArray(results)) {
+        this.submissions = results as UserSubmissionData[];
+      } else if (results && (results as any).data) {
+        this.submissions = (results as any).data as UserSubmissionData[];
+      } else {
+        this.submissions = [];
+      }
+
+    } catch (error) {
+      console.error('Failed to load user applications:', error);
+      this.submissions = [];
+    } finally {
+      this.loading = false;
+      m.redraw();
+    }
+  }
 }
