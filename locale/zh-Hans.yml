@@ -19,8 +19,8 @@ wusong8899-user-submission:
     list-submission-reviewing: 审核中
     list-empty: 暂无提交
   forum:
-    item-header: 沙县团饭指定战略合作伙伴托管机构
-    item-input-placeholder: 输入收款信息
+    item-header: 沙县大酒店指定战略合作伙伴
+    item-input-placeholder: 请输入团饭申请以及收款账号
     save-error: 保存错误
     submit-success: 提交成功
     submission-in-review: 申请正在审核中
