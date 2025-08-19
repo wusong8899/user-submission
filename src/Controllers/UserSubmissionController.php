@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class UserSubmissionController
 {
-    public function __invoke(Document $document, ServerRequestInterface $request)
+    public function __invoke(Document $document, ServerRequestInterface $request): Document
     {
         return $document;
     }

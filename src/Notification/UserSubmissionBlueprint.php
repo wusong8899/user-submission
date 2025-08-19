@@ -41,9 +41,8 @@ class UserSubmissionBlueprint implements BlueprintInterface
     {
         return [
             'review_result' => $this->userSubmission->review_result,
-            'review_status' => $this->userSubmission->review_status,
             'amount' => $this->userSubmission->amount,
-            'platform' => $this->userSubmission->platform,
+            'user_account' => $this->userSubmission->user_account,
         ];
     }
 

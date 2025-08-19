@@ -29,10 +29,10 @@ class UserSubmissionSerializer extends AbstractSerializer
             'submission_user_id' => $submission->submission_user_id,
             'review_user_id' => $submission->review_user_id,
             'review_result' => $submission->review_result,
-            'assigned_at' => $submission->assigned_at?->toISOString(),
+            'assigned_at' => $submission->assigned_at->toISOString(),
             'reviewed_at' => $submission->reviewed_at?->toISOString(),
-            'created_at' => $submission->created_at?->toISOString(),
-            'updated_at' => $submission->updated_at?->toISOString(),
+            'created_at' => $submission->created_at->toISOString(),
+            'updated_at' => $submission->updated_at->toISOString(),
             'is_pending' => $submission->isPending(),
             'is_approved' => $submission->isApproved(),
             'is_rejected' => $submission->isRejected(),
@@ -42,7 +42,7 @@ class UserSubmissionSerializer extends AbstractSerializer
     /**
      * Get a relationship with the user who submitted this submission
      */
-    protected function fromUser($submission): ?Relationship
+    protected function fromUser(UserSubmission $submission): ?Relationship
     {
         return $this->hasOne($submission, BasicUserSerializer::class);
     }
@@ -50,7 +50,7 @@ class UserSubmissionSerializer extends AbstractSerializer
     /**
      * Get a relationship with the user who reviewed this submission
      */
-    protected function reviewUser($submission): ?Relationship
+    protected function reviewUser(UserSubmission $submission): ?Relationship
     {
         return $this->hasOne($submission, BasicUserSerializer::class);
     }
