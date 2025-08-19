@@ -16,11 +16,11 @@ export default class UserSubmissionApplicationPage extends UserPage {
       if (currentUserID === targetUserID) {
         return (
           <div>
-            {UserSubmissionApplicationListPage.component({
-              params: {
+            <UserSubmissionApplicationListPage
+              params={{
                 user: this.user,
-              },
-            })}
+              }}
+            />
           </div>
         );
       }

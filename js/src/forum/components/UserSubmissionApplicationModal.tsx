@@ -73,24 +73,22 @@ export default class UserSubmissionApplicationModal extends Modal {
           </div>
 
           <div className="Form-group user-submission-modal__form-group">
-            {Button.component(
-              {
-                className: 'Button Button--primary user-submission-modal__button',
-                type: 'submit',
-                loading: this.loading,
-              },
-              app.translator.trans('wusong8899-user-submission.lib.ok')
-            )}
-            {Button.component(
-              {
-                className: 'Button user-submission-modal__button',
-                disabled: this.loading,
-                onclick: () => {
-                  this.hide();
-                }
-              },
-              app.translator.trans('wusong8899-user-submission.lib.cancel')
-            )}
+            <Button
+              className="Button Button--primary user-submission-modal__button"
+              type="submit"
+              loading={this.loading}
+            >
+              {app.translator.trans('wusong8899-user-submission.lib.ok')}
+            </Button>
+            <Button
+              className="Button user-submission-modal__button"
+              disabled={this.loading}
+              onclick={() => {
+                this.hide();
+              }}
+            >
+              {app.translator.trans('wusong8899-user-submission.lib.cancel')}
+            </Button>
           </div>
         </div>
       </div>

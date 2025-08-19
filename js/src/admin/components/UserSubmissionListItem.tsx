@@ -34,37 +34,37 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
           <div style="display: flex; gap: 5px; align-items: center;">
             {reviewedAt && (
               <div>
-                {Button.component({
-                  style: "font-weight:bold;",
-                  disabled: true,
-                  className: 'Button',
-                },
-                app.translator.trans('wusong8899-user-submission.admin.list-reviewed')
-                )}
+                <Button
+                  style="font-weight:bold;"
+                  disabled={true}
+                  className="Button"
+                >
+                  {app.translator.trans('wusong8899-user-submission.admin.list-reviewed')}
+                </Button>
               </div>
             )}
             {!reviewedAt && (
               <div>
-                {Button.component({
-                  style: "font-weight:bold;",
-                  className: 'Button Button--primary',
-                  onclick: () => {
+                <Button
+                  style="font-weight:bold;"
+                  className="Button Button--primary"
+                  onclick={() => {
                     this.reviewItem(itemData)
-                  }
-                },
-                app.translator.trans('wusong8899-user-submission.admin.list-review')
-                )}
+                  }}
+                >
+                  {app.translator.trans('wusong8899-user-submission.admin.list-review')}
+                </Button>
               </div>
             )}
             <div>
-              {Button.component({
-                className: 'Button Button--danger',
-                icon: 'fas fa-trash',
-                title: app.translator.trans('wusong8899-user-submission.admin.delete-submission'),
-                onclick: () => {
+              <Button
+                className="Button Button--danger"
+                icon="fas fa-trash"
+                title={app.translator.trans('wusong8899-user-submission.admin.delete-submission')}
+                onclick={() => {
                   this.deleteItem(itemData)
-                }
-              })}
+                }}
+              />
             </div>
           </div>
         </div>

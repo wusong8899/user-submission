@@ -33,36 +33,33 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
     return (
       <div className="Modal-body">
         <div className="Form-group user-submission-admin__modal-form-group">
-          {Button.component(
-            {
-              className: 'Button Button--primary user-submission-admin__modal-button',
-              disabled: this.loading,
-              onclick: (e: Event) => {
-                this.reviewConfirm(e, 'approved');
-              }
-            },
-            app.translator.trans('wusong8899-user-submission.lib.accept')
-          )}&nbsp;
-          {Button.component(
-            {
-              className: 'Button Button--danger user-submission-admin__modal-button',
-              disabled: this.loading,
-              onclick: (e: Event) => {
-                this.reviewConfirm(e, 'rejected');
-              }
-            },
-            app.translator.trans('wusong8899-user-submission.lib.decline')
-          )}&nbsp;
-          {Button.component(
-            {
-              className: 'Button user-submission-admin__modal-button',
-              disabled: this.loading,
-              onclick: () => {
-                this.hide();
-              }
-            },
-            app.translator.trans('wusong8899-user-submission.lib.cancel')
-          )}
+          <Button
+            className="Button Button--primary user-submission-admin__modal-button"
+            disabled={this.loading}
+            onclick={(e: Event) => {
+              this.reviewConfirm(e, 'approved');
+            }}
+          >
+            {app.translator.trans('wusong8899-user-submission.lib.accept')}
+          </Button>&nbsp;
+          <Button
+            className="Button Button--danger user-submission-admin__modal-button"
+            disabled={this.loading}
+            onclick={(e: Event) => {
+              this.reviewConfirm(e, 'rejected');
+            }}
+          >
+            {app.translator.trans('wusong8899-user-submission.lib.decline')}
+          </Button>&nbsp;
+          <Button
+            className="Button user-submission-admin__modal-button"
+            disabled={this.loading}
+            onclick={() => {
+              this.hide();
+            }}
+          >
+            {app.translator.trans('wusong8899-user-submission.lib.cancel')}
+          </Button>
         </div>
       </div>
     );

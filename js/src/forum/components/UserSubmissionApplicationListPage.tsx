@@ -33,10 +33,10 @@ export default class UserSubmissionApplicationListPage extends Component<UserSub
               </div>
             ) : (
               this.submissions.map((submission) => 
-                UserSubmissionApplicationListItem.component({ 
-                  key: submission.id(), 
-                  itemData: submission 
-                })
+                <UserSubmissionApplicationListItem 
+                  key={submission.id()} 
+                  itemData={submission} 
+                />
               )
             )}
           </div>

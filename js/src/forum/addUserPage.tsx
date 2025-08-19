@@ -19,18 +19,16 @@ export default function addUserPage(): void {
       if (currentUserID === targetUserID) {
         items.add(
           "userSubmissionApplication",
-          LinkButton.component({
-            href: app.route("user.userSubmissionApplication", {
+          <LinkButton
+            href={app.route("user.userSubmissionApplication", {
               username: this.user.username(),
-            }),
-            icon: "fas fa-file-signature",
-          },
-            [
-              app.translator.trans(
-                "wusong8899-user-submission.forum.application-list-title"
-              )
-            ]
-          ),
+            })}
+            icon="fas fa-file-signature"
+          >
+            {app.translator.trans(
+              "wusong8899-user-submission.forum.application-list-title"
+            )}
+          </LinkButton>,
           10
         );
       }

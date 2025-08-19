@@ -69,11 +69,13 @@ export default class UserSubmissionApplicationListItem extends Component<UserSub
           </div>
         )}
         <div className="user-submission-actions">
-          {Button.component({
-            className: 'Button Button--danger Button--small',
-            icon: 'fas fa-trash',
-            onclick: () => this.deleteItem(itemData)
-          }, app.translator.trans('wusong8899-user-submission.forum.delete-submission'))}
+          <Button
+            className="Button Button--danger Button--small"
+            icon="fas fa-trash"
+            onclick={() => this.deleteItem(itemData)}
+          >
+            {app.translator.trans('wusong8899-user-submission.forum.delete-submission')}
+          </Button>
         </div>
       </div>
     );

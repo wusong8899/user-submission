@@ -31,10 +31,10 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
               ) : (
                 <div className="UserSubmissionList-items">
                   {this.submissions.map((submission) => 
-                    UserSubmissionListItem.component({ 
-                      key: submission.id(), 
-                      itemData: submission 
-                    })
+                    <UserSubmissionListItem 
+                      key={submission.id()} 
+                      itemData={submission} 
+                    />
                   )}
                 </div>
               )}
