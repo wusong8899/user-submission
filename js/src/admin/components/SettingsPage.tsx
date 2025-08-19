@@ -4,6 +4,7 @@ import ListContainer from '../../common/components/ListContainer';
 import UserSubmissionListItem from './UserSubmissionListItem';
 import { UserSubmissionData } from '../../types';
 import { createPaginationState, parseResults } from '../../common/hooks/usePagination';
+import m from 'mithril';
 
 export default class UserSubmissionSettingsPage extends ExtensionPage {
   private pagination = createPaginationState();
@@ -33,8 +34,12 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
   private async loadMore(): Promise<void> {
     try {
       await this.pagination.loadMore((offset) => this.loadResults(offset));
+      // Force redraw after successful load
+      m.redraw();
     } catch (error) {
       console.error('Failed to load more results:', error);
+      // Force redraw after error too
+      m.redraw();
     }
   }
 
@@ -42,19 +47,21 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
     return parseResults(this.pagination, results);
   }
 
-  private loadResults(offset: number = 0): Promise<UserSubmissionData[]> {
-    return app.store
-      .find("userSubmissionList", {
+  private async loadResults(offset: number = 0): Promise<UserSubmissionData[]> {
+    try {
+      const results = await app.store.find("userSubmissionList", {
         page: {
           offset
         },
-      })
-      .catch((error) => {
-        console.error('Failed to load user submissions:', error);
-        this.pagination.setLoading(false);
-        return [];
-      })
-      .then(this.parseResults.bind(this));
+      });
+      
+      return this.parseResults(results as UserSubmissionData[]);
+    } catch (error) {
+      console.error('Failed to load user submissions:', error);
+      this.pagination.setLoading(false);
+      m.redraw(); // Ensure UI updates after error
+      return [];
+    }
   }
 
 }

@@ -30,7 +30,7 @@ export function createPaginationState(): PaginationState & PaginationActions {
   const actions: PaginationActions = {
     setLoading(loading: boolean) {
       state.loading = loading;
-      m.redraw();
+      // Don't call m.redraw() here - let the component handle redrawing
     },
 
     setMoreResults(hasMore: boolean) {
@@ -53,7 +53,7 @@ export function createPaginationState(): PaginationState & PaginationActions {
       if (state.loading) return; // Prevent multiple simultaneous requests
       
       state.loading = true;
-      m.redraw();
+      // Don't call m.redraw() immediately - let the natural render cycle handle it
       
       try {
         const results = await loadFunction(state.items.length);
@@ -62,7 +62,7 @@ export function createPaginationState(): PaginationState & PaginationActions {
       } catch (error) {
         console.error('Error loading more items:', error);
         state.loading = false;
-        m.redraw();
+        // Let the component handle the redraw after the promise resolves
         throw error;
       }
     }
