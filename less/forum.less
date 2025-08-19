@@ -22,3 +22,40 @@
   font-size: 14px;
   font-weight: bold;
 }
+
+// Widget header and title styles for proper Chinese character display
+.user-submission-widget {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  
+  .user-submission-header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.4;
+    
+    .user-submission-title {
+      margin-left: 8px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  .user-submission-input-container {
+    padding-top: 10px;
+    position: relative;
+    
+    input::placeholder {
+      font-size: 12px;
+    }
+  }
+}
+
+// Ensure Chinese characters display properly in modal titles and labels
+.Modal--small .Modal-header h3,
+.userSubmissionDataLabel {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.4;
+}
