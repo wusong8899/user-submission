@@ -30,25 +30,42 @@
   .user-submission-header {
     display: flex;
     align-items: center;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 1.4;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-color, #333);
+    
+    .user-submission-icon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
     
     .user-submission-title {
-      margin-left: 8px;
+      margin-left: 10px;
+      font-size: 15px;
+      font-weight: 600;
       word-break: keep-all;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: 0.02em;
     }
   }
   
   .user-submission-input-container {
-    padding-top: 10px;
+    padding-top: 12px;
     position: relative;
     
-    input::placeholder {
+    .FormControl {
       font-size: 12px;
+      line-height: 1.4;
+      
+      &::placeholder {
+        font-size: 12px;
+        color: var(--text-muted, #999);
+        font-weight: 400;
+      }
     }
   }
 }

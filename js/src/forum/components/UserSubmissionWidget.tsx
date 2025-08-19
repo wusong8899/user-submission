@@ -12,7 +12,7 @@ interface UserSubmissionWidgetAttrs extends ComponentAttrs {}
 export default class UserSubmissionWidget extends Component<UserSubmissionWidgetAttrs> {
   private static readonly POLL_INTERVAL = 10; // milliseconds
   private static readonly WIDGET_CLASS = 'UserSubmissionApplication';
-  private static readonly CONTAINER_SELECTOR = '.swiperTagContainer';
+  private static readonly CONTAINER_SELECTOR = '.swiperTagContainer'; // 当使用 flarum-header-advertisement ，改为splideTagContainer
 
   oncreate(vnode: any) {
     super.oncreate(vnode);
