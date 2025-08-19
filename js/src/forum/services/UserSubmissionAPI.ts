@@ -141,7 +141,7 @@ export function validateCreatePayload(payload: CreateUserSubmissionPayload): Val
       });
     }
 
-    if (payload.userAccount && payload.userAccount.length > VALIDATION_RULES.MAX_ACCOUNT_LENGTH) {
+    if (payload.userAccount && payload.userAccount.length > VALIDATION_RULES.MAX_USER_ACCOUNT_LENGTH) {
       errors.push({
         field: 'userAccount',
         message: app.translator.trans(`wusong8899-user-submission.lib.error.user_account_too_long`)

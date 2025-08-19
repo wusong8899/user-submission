@@ -97,7 +97,7 @@ class UserSubmissionService
             $errors[] = UserSubmissionConstants::ERROR_SAVE_FAILED;
         }
 
-        if (isset($data['userAccount']) && strlen($data['userAccount']) > UserSubmissionConstants::MAX_ACCOUNT_LENGTH) {
+        if (isset($data['userAccount']) && strlen($data['userAccount']) > UserSubmissionConstants::MAX_USER_ACCOUNT_LENGTH) {
             $errors[] = UserSubmissionConstants::ERROR_SAVE_FAILED;
         }
 
