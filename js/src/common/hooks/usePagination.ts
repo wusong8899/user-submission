@@ -71,7 +71,9 @@ export function parseResults(
   pagination: ReturnType<typeof createPaginationState>,
   results: UserSubmissionData[]
 ): UserSubmissionData[] {
-  pagination.setMoreResults(!!(results as any).payload?.links?.next);
+  // Check for pagination links in the response meta or links
+  const hasMoreResults = !!(results as any).links?.next || !!(results as any).meta?.hasMore;
+  pagination.setMoreResults(hasMoreResults);
   pagination.addItems(results);
   pagination.setLoading(false);
 

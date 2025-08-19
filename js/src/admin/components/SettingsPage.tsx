@@ -45,7 +45,11 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
           offset
         },
       })
-      .catch(() => [])
+      .catch((error) => {
+        console.error('Failed to load user submissions:', error);
+        this.pagination.setLoading(false);
+        return [];
+      })
       .then(this.parseResults.bind(this));
   }
 
