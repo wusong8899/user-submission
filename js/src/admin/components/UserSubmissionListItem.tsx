@@ -1,8 +1,8 @@
 import app from 'flarum/admin/app';
 import Component, { ComponentAttrs } from "flarum/Component";
-import Button from 'flarum/components/Button';
+import Button from 'flarum/common/components/Button';
 import UserSubmissionReviewModal from './UserSubmissionReviewModal';
-import username from "flarum/helpers/username";
+import username from "flarum/common/helpers/username";
 import { UserSubmissionData } from '../../types';
 
 interface UserSubmissionListItemAttrs extends ComponentAttrs {

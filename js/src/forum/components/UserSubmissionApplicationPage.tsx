@@ -1,5 +1,5 @@
 import app from 'flarum/forum/app';
-import UserPage from "flarum/components/UserPage";
+import UserPage from "flarum/forum/components/UserPage";
 import UserSubmissionApplicationListPage from "./UserSubmissionApplicationListPage";
 
 export default class UserSubmissionApplicationPage extends UserPage {

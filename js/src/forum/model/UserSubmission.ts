@@ -1,5 +1,5 @@
-import Model from "flarum/Model";
-import User from "flarum/models/User";
+import Model from "flarum/common/Model";
+import User from "flarum/common/models/User";
 import { UserSubmissionAttributes, UserSubmissionReviewResult, UserSubmissionReviewStatus } from "../../types";
 
 /**
@@ -87,7 +87,7 @@ Object.assign(UserSubmission.prototype, {
   reviewed_at: Model.attribute("reviewed_at", Model.transformDate),
   created_at: Model.attribute("created_at", Model.transformDate),
   updated_at: Model.attribute("updated_at", Model.transformDate),
-  
+
   // Relationships with proper naming for better clarity
   fromUser: Model.hasOne("fromUser"),
   reviewUser: Model.hasOne("reviewUser"),

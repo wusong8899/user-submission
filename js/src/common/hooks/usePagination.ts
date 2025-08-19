@@ -74,6 +74,6 @@ export function parseResults(
   pagination.setMoreResults(!!(results as any).payload?.links?.next);
   pagination.addItems(results);
   pagination.setLoading(false);
-  
+
   return results;
 }

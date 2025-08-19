@@ -1,7 +1,7 @@
 import app from 'flarum/forum/app';
-import Component, { ComponentAttrs } from 'flarum/Component';
+import Component, { ComponentAttrs } from 'flarum/common/Component';
 import UserSubmissionApplicationModal from './UserSubmissionApplicationModal';
-import LogInModal from 'flarum/components/LogInModal';
+import LogInModal from 'flarum/forum/components/LogInModal';
 import m from 'mithril';
 
 interface UserSubmissionWidgetAttrs extends ComponentAttrs {}

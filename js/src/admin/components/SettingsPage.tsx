@@ -1,5 +1,5 @@
 import app from 'flarum/admin/app';
-import ExtensionPage from 'flarum/components/ExtensionPage';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import ListContainer from '../../common/components/ListContainer';
 import UserSubmissionListItem from './UserSubmissionListItem';
 import { UserSubmissionData } from '../../types';

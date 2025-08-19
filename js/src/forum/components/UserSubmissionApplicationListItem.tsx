@@ -1,6 +1,6 @@
 import app from 'flarum/forum/app';
-import Component, { ComponentAttrs } from "flarum/Component";
-import Button from 'flarum/components/Button';
+import Component, { ComponentAttrs } from "flarum/common/Component";
+import Button from 'flarum/common/components/Button';
 import { UserSubmissionData } from "../../types";
 
 interface UserSubmissionApplicationListItemAttrs extends ComponentAttrs {

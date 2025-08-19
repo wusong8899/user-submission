@@ -1,7 +1,7 @@
 import app from 'flarum/forum/app';
-import Modal from 'flarum/components/Modal';
-import Stream from 'flarum/utils/Stream';
-import Button from 'flarum/components/Button';
+import Modal from 'flarum/common/components/Modal';
+import Stream from 'flarum/common/utils/Stream';
+import Button from 'flarum/common/components/Button';
 import UserSubmissionApplicationSubmitSuccessModal from './UserSubmissionApplicationSubmitSuccessModal';
 import { createUserSubmission } from '../services/UserSubmissionAPI';
 import { StreamType, CreateUserSubmissionPayload } from '../../types';

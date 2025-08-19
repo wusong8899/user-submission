@@ -1,4 +1,4 @@
-import Component, { ComponentAttrs } from "flarum/Component";
+import Component, { ComponentAttrs } from "flarum/common/Component";
 import app from "flarum/forum/app";
 import { UserSubmissionData } from "../../types";
 import ListContainer from "../../common/components/ListContainer";

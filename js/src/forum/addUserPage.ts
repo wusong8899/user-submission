@@ -1,7 +1,7 @@
 import app from 'flarum/forum/app';
-import { extend } from "flarum/extend";
-import UserPage from "flarum/components/UserPage";
-import LinkButton from "flarum/components/LinkButton";
+import { extend } from "flarum/common/extend";
+import UserPage from "flarum/forum/components/UserPage";
+import LinkButton from "flarum/common/components/LinkButton";
 
 import UserSubmissionApplicationPage from './components/UserSubmissionApplicationPage';
 
@@ -12,28 +12,28 @@ export default function addUserPage(): void {
   };
 
   extend(UserPage.prototype, "navItems", function (items) {
-      if (app.session.user) {
-        const currentUserID = app.session.user.id();
-        const targetUserID = this.user.id();
+    if (app.session.user) {
+      const currentUserID = app.session.user.id();
+      const targetUserID = this.user.id();
 
-        if (currentUserID === targetUserID) {
-          items.add(
-            "userSubmissionApplication",
-            LinkButton.component({
-                href: app.route("user.userSubmissionApplication", {
-                  username: this.user.username(),
-                }),
-                icon: "fas fa-file-signature",
-              },
-              [
-                app.translator.trans(
-                  "wusong8899-user-submission.forum.application-list-title"
-                )
-              ]
-            ),
-            10
-          );
-        }
+      if (currentUserID === targetUserID) {
+        items.add(
+          "userSubmissionApplication",
+          LinkButton.component({
+            href: app.route("user.userSubmissionApplication", {
+              username: this.user.username(),
+            }),
+            icon: "fas fa-file-signature",
+          },
+            [
+              app.translator.trans(
+                "wusong8899-user-submission.forum.application-list-title"
+              )
+            ]
+          ),
+          10
+        );
       }
+    }
   });
 }

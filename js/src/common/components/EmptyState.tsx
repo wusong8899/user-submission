@@ -1,5 +1,5 @@
 import app from 'flarum/forum/app';
-import Component, { ComponentAttrs } from 'flarum/Component';
+import Component, { ComponentAttrs } from 'flarum/common/Component';
 
 interface EmptyStateAttrs extends ComponentAttrs {
   message?: string;

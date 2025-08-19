@@ -1,10 +1,10 @@
 import app from 'flarum/forum/app';
-import Page from 'flarum/components/Page';
-import IndexPage from 'flarum/components/IndexPage';
+import Page from 'flarum/common/components/Page';
+import IndexPage from 'flarum/forum/components/IndexPage';
 import listItems from 'flarum/common/helpers/listItems';
 
 import UserSubmissionApplicationModal from './UserSubmissionApplicationModal';
-import LogInModal from "flarum/components/LogInModal";
+import LogInModal from "flarum/forum/components/LogInModal";
 
 export default class UserSubmissionIndexPage extends Page {
   oninit(vnode: any) {

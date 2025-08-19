@@ -1,6 +1,6 @@
 import app from 'flarum/forum/app';
-import { extend } from 'flarum/extend';
-import NotificationGrid from "flarum/components/NotificationGrid";
+import { extend } from 'flarum/common/extend';
+import NotificationGrid from "flarum/forum/components/NotificationGrid";
 import HeaderPrimary from 'flarum/forum/components/HeaderPrimary';
 import UserSubmissionWidget from './components/UserSubmissionWidget';
 
@@ -19,13 +19,13 @@ app.initializers.add('wusong8899-user-submission', () => {
   app.notificationComponents.userSubmissionList = UserSubmissionNotification;
 
   extend(HeaderPrimary.prototype, 'view', function () {
-      const routeName = app.current.get('routeName');
+    const routeName = app.current.get('routeName');
 
-      if (routeName === 'tags') {
-        // Initialize the user submission widget for the tags page
-        const widget = new UserSubmissionWidget();
-        widget.oncreate({});
-      }
+    if (routeName === 'tags') {
+      // Initialize the user submission widget for the tags page
+      const widget = new UserSubmissionWidget();
+      widget.oncreate({});
+    }
   });
 
   extend(NotificationGrid.prototype, "notificationTypes", function (items) {

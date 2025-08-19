@@ -1,29 +1,22 @@
 {
-  "extends": "flarum-tsconfig",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "flarum/*": [
-        "./node_modules/flarum-webpack-config/flarum/*"
-      ],
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "jsxFactory": "m"
-  },
+  "extends": "./node_modules/flarum-tsconfig/tsconfig.json",
   "include": [
-    "src/**/*",
-    "admin.ts",
-    "forum.ts",
-    "*.d.ts"
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "dist"
-  ]
+    "node_modules/**/*",
+    "dist/**/*"
+  ],
+  "compilerOptions": {
+    "isolatedModules": true,
+    "declaration": true,
+    "paths": {
+      "flarum/*": [
+        "../vendor/flarum/core/js/dist-typings/*"
+      ],
+      "flarum/tags/*": [
+        "../vendor/flarum/tags/js/dist-typings/*"
+      ]
+    }
+  }
 }

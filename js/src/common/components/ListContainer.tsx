@@ -1,5 +1,5 @@
-import Component, { ComponentAttrs } from 'flarum/Component';
-import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import Component, { ComponentAttrs } from 'flarum/common/Component';
+import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import EmptyState from './EmptyState';
 import LoadMoreButton from './LoadMoreButton';
 import { UserSubmissionData } from '../../types';
