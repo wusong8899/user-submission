@@ -30,6 +30,11 @@ class UserSubmission extends AbstractModel
     use ScopeVisibilityTrait;
 
     protected $table = UserSubmissionConstants::TABLE_NAME;
+    
+    /**
+     * Indicates if the model should be timestamped.
+     */
+    public $timestamps = true;
 
     /**
      * The attributes that should be cast to native types.

@@ -8,12 +8,12 @@ return [
     'up' => function (Builder $schema) {
         // Add timestamps columns if they don't exist
         if ($schema->hasTable('wusong8899_user_submission')) {
-            $schema->table('wusong8899_user_submission', function (Blueprint $table) {
-                // Check if columns exist before adding
-                if (!$schema->hasColumn('wusong8899_user_submission', 'created_at')) {
+            // Check if columns exist before adding
+            if (!$schema->hasColumn('wusong8899_user_submission', 'created_at')) {
+                $schema->table('wusong8899_user_submission', function (Blueprint $table) {
                     $table->timestamps();
-                }
-            });
+                });
+            }
             
             // Update existing records with null timestamps
             $now = Carbon::now();
