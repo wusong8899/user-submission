@@ -17,6 +17,7 @@ return [
                 $table->integer('review_result')->default(0);
                 $table->dateTime('assigned_at')->nullable();
                 $table->dateTime('reviewed_at')->nullable();
+                $table->timestamps();
 
                 $table->foreign('submission_user_id')->references('id')->on('users')->onDelete('cascade');
                 $table->foreign('review_user_id')->references('id')->on('users')->onDelete('cascade');

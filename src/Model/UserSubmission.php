@@ -22,8 +22,8 @@ use Carbon\Carbon;
  * @property int|null $review_result
  * @property Carbon|null $assigned_at
  * @property Carbon|null $reviewed_at
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
 class UserSubmission extends AbstractModel
 {
