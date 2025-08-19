@@ -73,7 +73,7 @@ export default class UserSubmissionWidget extends Component<UserSubmissionWidget
   private renderWidgetHtml(): string {
     return `
       <div class="user-submission-header">
-        <img class="user-submission-icon" style="width:22px;" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />
+        <img class="user-submission-icon" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />
         <span class="user-submission-title">${app.translator.trans("wusong8899-user-submission.forum.item-header")}</span>
       </div>
       <div class="user-submission-input-container">
