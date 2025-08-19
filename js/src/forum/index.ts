@@ -18,7 +18,7 @@ app.initializers.add('wusong8899-user-submission', () => {
   app.store.models.userSubmissionList = UserSubmission;
   app.notificationComponents.userSubmissionList = UserSubmissionNotification;
 
-  extend(HeaderPrimary.prototype, 'view', function () {
+  extend(HeaderPrimary.prototype, 'view', function (original) {
       const routeName = app.current.get('routeName');
 
       if (routeName === 'tags') {
@@ -26,6 +26,8 @@ app.initializers.add('wusong8899-user-submission', () => {
         const widget = new UserSubmissionWidget();
         widget.oncreate({});
       }
+
+      return original();
   });
 
   extend(NotificationGrid.prototype, "notificationTypes", function (items) {
