@@ -48,8 +48,8 @@ export default class UserSubmissionApplicationListPage extends Component<UserSub
   private async loadSubmissions(): Promise<void> {
     try {
       this.loading = true;
-      m.redraw();
-
+      // Remove immediate redraw to avoid rendering conflicts
+      
       // Load user's applications
       const results = await app.store.find("userSubmissionApplicationList", {
         page: { limit: 50 }
@@ -69,7 +69,8 @@ export default class UserSubmissionApplicationListPage extends Component<UserSub
       this.submissions = [];
     } finally {
       this.loading = false;
-      m.redraw();
+      // Use setTimeout to avoid synchronous redraw issues
+      setTimeout(() => m.redraw(), 0);
     }
   }
 }

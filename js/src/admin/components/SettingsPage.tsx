@@ -48,7 +48,7 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
   private async loadSubmissions(): Promise<void> {
     try {
       this.loading = true;
-      m.redraw();
+      // Remove immediate redraw to avoid rendering conflicts
 
       // Load all submissions (or first 50)
       const results = await app.store.find("userSubmissionList", {
@@ -71,7 +71,8 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
       this.submissions = [];
     } finally {
       this.loading = false;
-      m.redraw();
+      // Use setTimeout to avoid synchronous redraw issues
+      setTimeout(() => m.redraw(), 0);
     }
   }
 }
