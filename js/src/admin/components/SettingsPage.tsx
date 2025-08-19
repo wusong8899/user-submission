@@ -22,7 +22,7 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
             loading={this.pagination.loading}
             hasMore={this.pagination.hasMoreResults()}
             onLoadMore={() => this.loadMore()}
-            renderItem={(itemData) => UserSubmissionListItem.component({ itemData })}
+            renderItem={(itemData) => <UserSubmissionListItem itemData={itemData} />}
             className="user-submission-admin__list"
           />
         </div>
