@@ -25,6 +25,10 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
     );
     const assignedAt = itemData.assigned_at();
     const reviewedAt = itemData.reviewed_at();
+    
+    // Format dates for display
+    const formattedAssignedAt = assignedAt ? new Date(assignedAt).toLocaleString() : '';
+    const formattedReviewedAt = reviewedAt ? new Date(reviewedAt).toLocaleString() : '';
 
     // const bidText = moneyName.replace('[money]', bidValue);
 
@@ -74,7 +78,7 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-amount')}: </b>
           {amount}&nbsp;|&nbsp;
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-assignedAt')}: </b>
-          {assignedAt}
+          {formattedAssignedAt}
         </div>
         <div>
           <b>{app.translator.trans('wusong8899-user-submission.lib.list-userAccount')}: </b>
@@ -85,7 +89,7 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewResult')}: </b>
             {reviewResultText}&nbsp;|&nbsp;
             <b>{app.translator.trans('wusong8899-user-submission.lib.list-reviewAt')}: </b>
-            {reviewedAt}
+            {formattedReviewedAt}
           </div>
         )}
       </div>
