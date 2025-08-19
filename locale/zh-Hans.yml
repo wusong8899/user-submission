@@ -30,6 +30,7 @@ wusong8899-user-submission:
     notification-submission-result-success: "你的申请已通过，申请ID:{id}"
     notification-submission-result-failed: " 你的申请被拒绝，申请ID:{id}"
     confirm-delete: "确定要删除此申请吗？"
+    delete-submission: "删除"
     delete-failed: "删除失败"
     no_applications: "暂无申请记录"
   admin:
