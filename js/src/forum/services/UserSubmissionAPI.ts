@@ -184,7 +184,7 @@ async function requestWithRetry(
       const response = await app.request({
         method,
         url,
-        body: data ? JSON.stringify(data) : undefined,
+        body: data,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
