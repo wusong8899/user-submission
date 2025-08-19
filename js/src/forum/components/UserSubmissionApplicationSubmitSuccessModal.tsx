@@ -3,8 +3,7 @@ import Modal from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
 
 export default class UserSubmissionApplicationSubmitSuccessModal extends Modal {
-  static isDismissibleViaBackdropClick = false;
-  static isDismissibleViaEscapeKey = true;
+  static isDismissible = true;
 
   className() {
     return 'Modal--small';
@@ -21,7 +20,7 @@ export default class UserSubmissionApplicationSubmitSuccessModal extends Modal {
           <div className="Form-group" style={{ textAlign: 'center' }}>
             <Button
               className="Button Button--primary"
-              onclick={() => this.hide()}
+              onclick={() => app.modal.close()}
             >
               {app.translator.trans('wusong8899-user-submission.lib.ok')}
             </Button>
