@@ -40,11 +40,8 @@ class ListUserSubmissionController extends AbstractListController
         $limit = $this->extractLimit($request);
         $offset = $this->extractOffset($request);
 
-        $userSubmissionResult = UserSubmission::where(
-            'assigned_at',
-            '>=',
-            Carbon::now()->subDays(self::DEFAULT_DAYS_FILTER)->toDateTimeString()
-        )
+        // Get all submissions, ordered by newest first
+        $userSubmissionResult = UserSubmission::with(['fromUser', 'reviewUser'])
             ->skip($offset)
             ->take($limit + 1)
             ->orderBy('id', 'desc')

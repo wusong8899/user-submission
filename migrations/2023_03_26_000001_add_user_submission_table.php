@@ -15,7 +15,7 @@ return [
                 $table->integer('submission_user_id')->unsigned();
                 $table->integer('review_user_id')->unsigned()->nullable();
                 $table->integer('review_result')->default(0);
-                $table->dateTime('assigned_at');
+                $table->dateTime('assigned_at')->nullable();
                 $table->dateTime('reviewed_at')->nullable();
 
                 $table->foreign('submission_user_id')->references('id')->on('users')->onDelete('cascade');
