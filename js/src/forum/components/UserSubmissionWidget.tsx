@@ -72,14 +72,16 @@ export default class UserSubmissionWidget extends Component<UserSubmissionWidget
 
   private renderWidgetHtml(): string {
     return `
-      <div class="user-submission-header">
-        <img class="user-submission-icon" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />
-        <span class="user-submission-title">${app.translator.trans("wusong8899-user-submission.forum.item-header")}</span>
-      </div>
-      <div class="user-submission-input-container">
-        <div class="UserSubmissionApplicationInput" style="position: absolute;height: 37px;width: 100%;z-index: 1;"></div>
-        <div style="width:100%" class="Search-input">
-          <input disabled style="width: 100%;" class="FormControl" type="search" placeholder="${app.translator.trans('wusong8899-user-submission.forum.item-input-placeholder')}" />
+      <div class="user-submission-widget">
+        <div class="user-submission-header">
+          <img class="user-submission-icon" src="https://i.mji.rip/2025/08/15/102ee6e187aa177ddfe02364dc82208d.png" />
+          <span class="user-submission-title">${app.translator.trans("wusong8899-user-submission.forum.item-header")}</span>
+        </div>
+        <div class="user-submission-input-container">
+          <div class="UserSubmissionApplicationInput" style="position: absolute;height: 37px;width: 100%;z-index: 1;"></div>
+          <div style="width:100%" class="Search-input">
+            <input disabled style="width: 100%;" class="FormControl" type="search" placeholder="${app.translator.trans('wusong8899-user-submission.forum.item-input-placeholder')}" />
+          </div>
         </div>
       </div>
     `;
