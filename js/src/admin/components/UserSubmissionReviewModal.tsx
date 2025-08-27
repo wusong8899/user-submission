@@ -69,15 +69,31 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
     e.preventDefault();
 
     this.loading = true;
-    this.itemData.save({
-      reviewResult: value,
+    
+    app.request({
+      method: 'PATCH',
+      url: app.forum.attribute('apiUrl') + '/userSubmissionList/' + this.itemData.id,
+      body: {
+        data: {
+          type: 'userSubmissionList',
+          id: this.itemData.id,
+          attributes: {
+            reviewResult: value,
+          }
+        }
+      }
     })
     .then(() => {
       this.hide();
       this.loading = false;
+      // Refresh the page to show updated status
+      window.location.reload();
     })
-    .catch(() => {
+    .catch((error) => {
       this.loading = false;
+      // Show error message to user
+      const errorMessage = error.message || app.translator.trans('wusong8899-user-submission.admin.review-failed');
+      alert(errorMessage);
     });
   }
 }
