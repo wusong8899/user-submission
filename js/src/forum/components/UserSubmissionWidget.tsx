@@ -13,7 +13,7 @@ interface UserSubmissionWidgetAttrs extends ComponentAttrs {}
 export default class UserSubmissionWidget extends Component<UserSubmissionWidgetAttrs> {
   private static readonly POLL_INTERVAL = 10; // milliseconds
   private static readonly WIDGET_CLASS = 'UserSubmissionApplication';
-  private static readonly CONTAINER_SELECTOR = '.swiperTagContainer'; // 当使用 flarum-header-advertisement ，改为splideTagContainer
+  private static readonly CONTAINER_SELECTOR = '.TagGlide-wrapper'; // 当使用 flarum-header-advertisement ，改为splideTagContainer
   
   private widgetElement?: HTMLElement;
 
