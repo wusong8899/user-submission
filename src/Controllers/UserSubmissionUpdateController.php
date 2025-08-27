@@ -66,8 +66,17 @@ class UserSubmissionUpdateController extends AbstractCreateController
             ]);
         }
 
-        $reviewResult = (int) Arr::get($submissionSaveData, 'attributes.reviewResult', 0);
+        $reviewResultString = Arr::get($submissionSaveData, 'attributes.reviewResult', '');
         $currentUserId = (int) $actor->id;
+
+        // Convert string review result to integer constant
+        $reviewResult = match ($reviewResultString) {
+            'approved' => UserSubmissionConstants::REVIEW_RESULT_APPROVED,
+            'rejected' => UserSubmissionConstants::REVIEW_RESULT_REJECTED,
+            default => throw new ValidationException([
+                'message' => $this->translator->trans(UserSubmissionConstants::ERROR_SAVE_FAILED)
+            ])
+        };
 
         // Review the submission
         $reviewedSubmission = $this->submissionService->reviewSubmission(
