@@ -55,7 +55,7 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
             className="Button user-submission-admin__modal-button"
             disabled={this.loading}
             onclick={() => {
-              this.hide();
+              app.modal.close();
             }}
           >
             {app.translator.trans('wusong8899-user-submission.lib.cancel')}
@@ -84,7 +84,7 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
       }
     })
     .then(() => {
-      this.hide();
+      app.modal.close();
       this.loading = false;
       // Refresh the page to show updated status
       window.location.reload();
