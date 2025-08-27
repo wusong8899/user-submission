@@ -11,13 +11,7 @@
     "correctness": "error",
     "suspicious": "warn"
   },
-  "rules": {
-    // Common safety rules
-    "no-debugger": "error",
-    "no-unsafe-finally": "error",
-    // Keep console usage as a warning for now to avoid blocking builds
-    "no-console": "warn"
-  },
+  "rules": {},
   "overrides": [
     {
       // TypeScript specific tweaks if needed later

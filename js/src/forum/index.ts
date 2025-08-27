@@ -1,8 +1,9 @@
 import app from 'flarum/forum/app';
-import { extend } from 'flarum/common/extend';
+import { extend, override } from 'flarum/common/extend';
 import NotificationGrid from "flarum/forum/components/NotificationGrid";
-import HeaderPrimary from 'flarum/forum/components/HeaderPrimary';
+import TagsPage from 'flarum/tags/forum/components/TagsPage';
 import UserSubmissionWidget from './components/UserSubmissionWidget';
+import m from 'mithril';
 
 import UserSubmission from "./model/UserSubmission";
 import addUserPage from './addUserPage';
@@ -18,13 +19,24 @@ app.initializers.add('wusong8899-user-submission', () => {
   app.store.models.userSubmissionList = UserSubmission;
   app.notificationComponents.userSubmissionList = UserSubmissionNotification;
 
-  extend(HeaderPrimary.prototype, 'view', function () {
-    const routeName = app.current.get('routeName');
-
-    if (routeName === 'tags') {
-      // Initialize the user submission widget for the tags page
-      const widget = new UserSubmissionWidget();
-      widget.oncreate({});
+  // Add UserSubmissionWidget to TagsPage view
+  override(TagsPage.prototype, 'view', function (original) {
+    try {
+      const result = original();
+      
+      // Add UserSubmissionWidget after the main TagsPage content
+      const widget = m(UserSubmissionWidget);
+      
+      // Insert widget after the main content
+      if (Array.isArray(result)) {
+        return [...result, widget];
+      } else {
+        return [result, widget];
+      }
+    } catch (error) {
+      console.error('UserSubmissionWidget integration error:', error);
+      // Always fall back to original on error
+      return original();
     }
   });
 
