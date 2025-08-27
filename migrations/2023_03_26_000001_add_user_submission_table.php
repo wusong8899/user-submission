@@ -14,7 +14,7 @@ return [
                 $table->string('user_account', 500);
                 $table->integer('submission_user_id')->unsigned();
                 $table->integer('review_user_id')->unsigned()->nullable();
-                $table->integer('review_result')->default(0);
+                $table->integer('review_result')->nullable();
                 $table->dateTime('assigned_at')->nullable();
                 $table->dateTime('reviewed_at')->nullable();
                 $table->timestamps();
