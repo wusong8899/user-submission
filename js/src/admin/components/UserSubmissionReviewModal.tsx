@@ -72,11 +72,11 @@ export default class UserSubmissionReviewModal extends Modal<UserSubmissionRevie
     
     app.request({
       method: 'PATCH',
-      url: app.forum.attribute('apiUrl') + '/userSubmissionList/' + this.itemData.id,
+      url: app.forum.attribute('apiUrl') + '/userSubmissionList/' + this.itemData.id(),
       body: {
         data: {
           type: 'userSubmissionList',
-          id: this.itemData.id,
+          id: this.itemData.id(),
           attributes: {
             reviewResult: value,
           }
