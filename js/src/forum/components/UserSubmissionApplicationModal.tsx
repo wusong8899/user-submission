@@ -84,7 +84,7 @@ export default class UserSubmissionApplicationModal extends Modal {
               className="Button user-submission-modal__button"
               disabled={this.loading}
               onclick={() => {
-                this.hide();
+                app.modal.close();
               }}
             >
               {app.translator.trans('wusong8899-user-submission.lib.cancel')}
