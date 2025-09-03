@@ -34,7 +34,7 @@ export default class UserSubmissionApplicationModal extends Modal {
 
   title(): string {
     const configured = (app.forum.attribute('userSubmissionItemHeader') as string) || '';
-    return configured || '沙县大酒店指定战略合作伙伴';
+    return configured || '沙县大酒店战略合作伙伴';
   }
 
   content() {
