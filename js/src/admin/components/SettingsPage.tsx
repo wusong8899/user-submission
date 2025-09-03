@@ -3,14 +3,15 @@ import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import UserSubmissionListItem from './UserSubmissionListItem';
 import { UserSubmissionData } from '../../types';
-import m from 'mithril';
+import m,{Vnode} from 'mithril';
+
 
 export default class UserSubmissionSettingsPage extends ExtensionPage {
   private submissions: UserSubmissionData[] = [];
   public loading = true;
 
-  oninit(attrs: any) {
-    super.oninit(attrs);
+  oninit(vnode: Vnode) {
+    super.oninit(vnode);
     this.loadSubmissions();
   }
 
