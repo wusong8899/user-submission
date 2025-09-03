@@ -15,15 +15,15 @@ export type UserSubmissionReviewStatus = "pending" | "approved" | "rejected";
  */
 export interface UserSubmissionAttributes {
   id(): string;
-  amount: number;
-  user_account: string;
-  submission_user_id: string;
-  review_user_id: string | null;
-  review_result: UserSubmissionReviewResult | null;
-  assigned_at: Date;
-  reviewed_at: Date | null;
-  created_at: Date;
-  updated_at: Date;
+  amount: () => number;
+  user_account: () => string;
+  submission_user_id: () => string;
+  review_user_id: () => string | null;
+  review_result: () => UserSubmissionReviewResult | null;
+  assigned_at: () => Date;
+  reviewed_at: () => Date | null;
+  created_at: () => Date;
+  updated_at: () => Date;
 }
 
 /**
@@ -31,8 +31,17 @@ export interface UserSubmissionAttributes {
  */
 export interface UserSubmissionData extends UserSubmissionAttributes {
   id: () => string;
-  fromUser: User;
-  reviewUser: User | null;
+  amount: () => number;
+  user_account: () => string;
+  submission_user_id: () => string;
+  review_user_id: () => string | null;
+  review_result: () => UserSubmissionReviewResult | null;
+  assigned_at: () => Date;
+  reviewed_at: () => Date | null;
+  created_at: () => Date;
+  updated_at: () => Date;
+  fromUser: () => User;
+  reviewUser: () => User | null;
 }
 
 /**

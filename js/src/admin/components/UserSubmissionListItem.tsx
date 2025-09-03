@@ -1,5 +1,5 @@
 import app from 'flarum/admin/app';
-import Component, { ComponentAttrs } from "flarum/Component";
+import Component, { ComponentAttrs } from "flarum/common/Component";
 import Button from 'flarum/common/components/Button';
 import UserSubmissionReviewModal from './UserSubmissionReviewModal';
 import username from "flarum/common/helpers/username";
@@ -101,7 +101,7 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
   }
 
   private deleteItem(itemData: UserSubmissionData): void {
-    if (confirm(app.translator.trans('wusong8899-user-submission.admin.confirm-delete'))) {
+    if (confirm('确定要删除此申请吗？')) {
       app.request({
         method: 'DELETE',
         url: app.forum.attribute('apiUrl') + '/userSubmissionList/' + itemData.id(),
@@ -111,7 +111,7 @@ export default class UserSubmissionListItem extends Component<UserSubmissionList
           window.location.reload();
         })
         .catch(() => {
-          alert(app.translator.trans('wusong8899-user-submission.admin.delete-failed'));
+          alert('删除失败');
         });
     }
   }
