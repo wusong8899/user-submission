@@ -14,10 +14,10 @@ export default class UserSubmissionApplicationModal extends Modal {
   static isDismissibleViaBackdropClick = false;
   static isDismissibleViaCloseButton = true;
 
-  private loading: boolean = false;
+  protected loading: boolean = false;
   private error: string | null = null;
-  private amount: StreamType<string>;
-  private userAccount: StreamType<string>;
+  private amount: StreamType<string> = Stream("");
+  private userAccount: StreamType<string> = Stream("");
 
   oninit(vnode: any) {
     super.oninit(vnode);
@@ -33,7 +33,8 @@ export default class UserSubmissionApplicationModal extends Modal {
   }
 
   title(): string {
-    return app.translator.trans('wusong8899-user-submission.forum.item-header');
+    const configured = (app.forum.attribute('userSubmissionItemHeader') as string) || '';
+    return configured || '沙县大酒店指定战略合作伙伴';
   }
 
   content() {

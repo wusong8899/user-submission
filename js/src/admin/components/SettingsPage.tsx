@@ -7,7 +7,7 @@ import m from 'mithril';
 
 export default class UserSubmissionSettingsPage extends ExtensionPage {
   private submissions: UserSubmissionData[] = [];
-  private loading = true;
+  public loading = true;
 
   oninit(attrs: any) {
     super.oninit(attrs);
@@ -18,19 +18,32 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
     return (
       <div className="ExtensionPage-settings">
         <div className="container">
-          <h2>{app.translator.trans('wusong8899-user-submission.admin.title', {}, true)}</h2>
-          
+          <h2>用户提交管理</h2>
+
+          <div className="Form">
+            {this.buildSettingComponent({
+              setting: 'wusong8899-user-submission.item_header',
+              type: 'text',
+              label: app.translator.trans('wusong8899-user-submission.admin.setting.item_header_label'),
+              help: app.translator.trans('wusong8899-user-submission.admin.setting.item_header_help'),
+            })}
+
+            <div className="Form-group">
+              {this.submitButton()}
+            </div>
+          </div>
+
           {this.loading ? (
             <LoadingIndicator size="large" />
           ) : (
             <div className="UserSubmissionList">
               {this.submissions.length === 0 ? (
                 <div className="EmptyState">
-                  <p>{app.translator.trans('wusong8899-user-submission.admin.no_submissions', {}, true)}</p>
+                  <p>暂无提交记录</p>
                 </div>
               ) : (
                 <div className="UserSubmissionList-items">
-                  {this.submissions.map((submission) => 
+                  {this.submissions.map((submission: UserSubmissionData) => 
                     <UserSubmissionListItem 
                       key={submission.id()} 
                       itemData={submission} 
@@ -57,7 +70,7 @@ export default class UserSubmissionSettingsPage extends ExtensionPage {
 
       // Handle the results - they might be wrapped or direct array
       if (Array.isArray(results)) {
-        this.submissions = results as UserSubmissionData[];
+        this.submissions = results as unknown as UserSubmissionData[];
       } else if (results && (results as any).data) {
         this.submissions = (results as any).data as UserSubmissionData[];
       } else {

@@ -41,3 +41,6 @@ wusong8899-user-submission:
     no_submissions: 暂无提交记录
     confirm-delete: "确定要删除此申请吗？"
     delete-failed: "删除失败"
+    setting:
+      item_header_label: 小组件标题文本
+      item_header_help: 如设置，将覆盖默认的前台标题文本。

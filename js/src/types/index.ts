@@ -1,20 +1,20 @@
-import User from 'flarum/models/User';
+import User from "flarum/common/models/User";
 
 /**
  * Review result type - strictly typed enum
  */
-export type UserSubmissionReviewResult = 'approved' | 'rejected';
+export type UserSubmissionReviewResult = "approved" | "rejected";
 
 /**
  * Review status type including pending state
  */
-export type UserSubmissionReviewStatus = 'pending' | 'approved' | 'rejected';
+export type UserSubmissionReviewStatus = "pending" | "approved" | "rejected";
 
 /**
  * Enhanced User Submission model interface with strict typing
  */
 export interface UserSubmissionAttributes {
-  readonly id: string;
+  id(): string;
   amount: number;
   user_account: string;
   submission_user_id: string;
@@ -30,6 +30,7 @@ export interface UserSubmissionAttributes {
  * User Submission model with relationships
  */
 export interface UserSubmissionData extends UserSubmissionAttributes {
+  id: () => string;
   fromUser: User;
   reviewUser: User | null;
 }
@@ -100,7 +101,7 @@ export interface UserSubmissionFormState {
  * Review modal state interface with strict typing
  */
 export interface ReviewModalState {
-  reviewResult: StreamType<UserSubmissionReviewResult | ''>;
+  reviewResult: StreamType<UserSubmissionReviewResult | "">;
   loading: boolean;
 }
 
@@ -151,7 +152,10 @@ export interface ValidationError {
 export interface UserSubmissionService {
   list(params?: ListParams): Promise<UserSubmissionListResponse>;
   create(payload: CreateUserSubmissionPayload): Promise<UserSubmissionData>;
-  update(id: string, payload: UpdateUserSubmissionPayload): Promise<UserSubmissionData>;
+  update(
+    id: string,
+    payload: UpdateUserSubmissionPayload
+  ): Promise<UserSubmissionData>;
   delete(id: string): Promise<void>;
   validate(data: Partial<CreateUserSubmissionPayload>): ValidationError[];
 }
@@ -172,13 +176,13 @@ export interface ListParams {
  */
 export const USER_SUBMISSION_CONSTANTS = {
   REVIEW_RESULTS: {
-    APPROVED: 'approved' as const,
-    REJECTED: 'rejected' as const,
+    APPROVED: "approved" as const,
+    REJECTED: "rejected" as const,
   },
   REVIEW_STATUSES: {
-    PENDING: 'pending' as const,
-    APPROVED: 'approved' as const,
-    REJECTED: 'rejected' as const,
+    PENDING: "pending" as const,
+    APPROVED: "approved" as const,
+    REJECTED: "rejected" as const,
   },
   VALIDATION_RULES: {
     MIN_AMOUNT: 0.01,
@@ -186,10 +190,10 @@ export const USER_SUBMISSION_CONSTANTS = {
     MAX_USER_ACCOUNT_LENGTH: 500,
   },
   ERROR_CODES: {
-    SUBMISSION_IN_REVIEW: 'submission_in_review',
-    INVALID_AMOUNT: 'invalid_amount',
-    INVALID_ACCOUNT: 'invalid_account',
-    UNAUTHORIZED: 'unauthorized',
-    NOT_FOUND: 'not_found',
-  }
+    SUBMISSION_IN_REVIEW: "submission_in_review",
+    INVALID_AMOUNT: "invalid_amount",
+    INVALID_ACCOUNT: "invalid_account",
+    UNAUTHORIZED: "unauthorized",
+    NOT_FOUND: "not_found",
+  },
 } as const;

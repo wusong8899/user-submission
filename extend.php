@@ -20,6 +20,11 @@ $extend = [
 
     (new Extend\Locales(__DIR__ . '/locale')),
 
+    // Expose admin-configured item header to the forum and set default
+    (new Extend\Settings())
+        ->default('wusong8899-user-submission.item_header', '')
+        ->serializeToForum('userSubmissionItemHeader', 'wusong8899-user-submission.item_header'),
+
     (new Extend\Routes('api'))
         ->get('/userSubmissionList', 'userSubmission.get', ListUserSubmissionController::class)
         ->get('/userSubmissionApplicationList', 'userSubmissionApplication.get', ListUserApplicationController::class)

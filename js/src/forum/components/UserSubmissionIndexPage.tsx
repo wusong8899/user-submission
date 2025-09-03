@@ -27,7 +27,7 @@ export default class UserSubmissionIndexPage extends Page {
                 src="https://mutluresim.com/images/2023/03/26/ViOux.png"
                 alt="User Submission"
               />
-              &nbsp;{app.translator.trans("wusong8899-user-submission.forum.item-header")}
+              &nbsp;{(app.forum.attribute('userSubmissionItemHeader') as string) || app.translator.trans("wusong8899-user-submission.forum.item-header")}
             </div>
             <div className="user-submission-input-container">
               <div

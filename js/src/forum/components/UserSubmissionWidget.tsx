@@ -37,7 +37,7 @@ export default class UserSubmissionWidget extends Component<UserSubmissionWidget
             alt="User Submission"
           />
           <span className="user-submission-title">
-            {app.translator.trans("wusong8899-user-submission.forum.item-header")}
+            {(app.forum.attribute('userSubmissionItemHeader') as string) || app.translator.trans("wusong8899-user-submission.forum.item-header")}
           </span>
         </div>
         <div className="user-submission-input-container">
